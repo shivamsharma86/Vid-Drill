@@ -1,0 +1,3193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VidDrill - Premium Video Experience</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        
+        :root {
+            --primary-color: #673DE6;
+            --primary-dark: #5025D1;
+            --primary-light: #F1EDFF;
+            --secondary-color: #2F1C6A;
+            --accent-color: #00D97E;
+            --text-dark: #2D3748;
+            --text-light: #718096;
+            --bg-color: #FFFFFF;
+            --card-bg: #F8FAFC;
+            --border-color: #E2E8F0;
+            --header-bg: rgba(255, 255, 255, 0.95);
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            --shadow-hover: 0 10px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        * { 
+            margin: 0; 
+            padding: 0; 
+            box-sizing: border-box; 
+        }
+        
+        body { 
+            font-family: 'Inter', sans-serif; 
+            background-color: var(--bg-color); 
+            color: var(--text-dark); 
+            line-height: 1.6;
+        }
+        
+        /* Container */
+        .container { 
+            max-width: 1200px; 
+            margin: 0 auto; 
+            padding: 0 20px; 
+        }
+        
+        /* Header */
+        .header { 
+            padding: 20px 0; 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+            flex-wrap: wrap; 
+            gap: 15px; 
+            position: sticky;
+            top: 0;
+            background-color: var(--header-bg);
+            z-index: 100;
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        .header-left, .header-right { 
+            display: flex; 
+            align-items: center; 
+            gap: 20px; 
+        }
+        
+        .logo { 
+            font-size: 1.8rem; 
+            font-weight: 700; 
+            color: var(--primary-color);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .premium-badge {
+            background: var(--primary-color);
+            color: white;
+            font-size: 0.7rem;
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-weight: 600;
+            margin-left: 5px;
+        }
+        
+        .nav-menu { 
+            display: flex; 
+            gap: 15px; 
+            flex-wrap: wrap; 
+            justify-content: center; 
+        }
+        
+        .nav-link { 
+            background: transparent; 
+            border: 1px solid var(--border-color); 
+            color: var(--text-dark); 
+            padding: 10px 20px; 
+            border-radius: 50px; 
+            cursor: pointer; 
+            transition: all 0.3s ease; 
+            font-weight: 500; 
+        }
+        
+        .nav-link:hover, .nav-link.active { 
+            background: var(--primary-color); 
+            color: white; 
+            border-color: var(--primary-color);
+        }
+        
+        /* Hero Section */
+        .hero {
+            padding: 80px 0;
+            text-align: center;
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            color: white;
+            margin-bottom: 40px;
+        }
+        
+        .hero h1 {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            line-height: 1.2;
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto;
+            opacity: 0.9;
+        }
+        
+        /* Search Bar */
+        .search-container { 
+            margin: 30px 0; 
+            position: relative;
+        }
+        
+        .search-bar { 
+            width: 100%; 
+            padding: 16px 25px; 
+            background-color: var(--bg-color); 
+            border: 1px solid var(--border-color); 
+            border-radius: 8px; 
+            color: var(--text-dark); 
+            font-size: 1rem; 
+            box-shadow: var(--shadow); 
+            transition: all 0.3s;
+        }
+        
+        .search-bar:focus {
+            box-shadow: 0 0 0 3px rgba(103, 61, 230, 0.2);
+            outline: none;
+            border-color: var(--primary-color);
+        }
+        
+        .search-bar::placeholder { 
+            color: var(--text-light); 
+        }
+        
+        /* Categories Section */
+        .categories-section {
+            margin-bottom: 40px;
+        }
+        
+        .section-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: var(--text-dark);
+        }
+        
+        .categories-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+            gap: 12px;
+        }
+        
+        .category-card {
+            background: var(--card-bg);
+            padding: 15px 10px;
+            border-radius: 10px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border-color);
+        }
+        
+        .category-card:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-hover);
+            background: var(--primary-light);
+            border-color: var(--primary-color);
+        }
+        
+        .category-card.active {
+            background: var(--primary-color);
+            color: white;
+            border-color: var(--primary-color);
+        }
+        
+        .category-icon {
+            font-size: 1.5rem;
+            margin-bottom: 8px;
+        }
+        
+        .category-name {
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+        
+        /* Video Grid & Cards */
+        .video-grid { 
+            display: grid; 
+            grid-template-columns: repeat(3, 1fr); 
+            gap: 30px; 
+            padding: 10px 0; 
+        }
+        
+        .video-card { 
+            background: var(--card-bg); 
+            border-radius: 10px; 
+            overflow: hidden; 
+            box-shadow: var(--shadow); 
+            transition: transform 0.3s ease, box-shadow 0.3s ease; 
+            display: flex; 
+            flex-direction: column;
+            position: relative;
+        }
+        
+        .video-card:hover { 
+            transform: translateY(-5px); 
+            box-shadow: var(--shadow-hover); 
+        }
+        
+        .video-card.new::before {
+            content: 'NEW';
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: var(--accent-color);
+            color: white;
+            padding: 4px 10px;
+            border-radius: 4px;
+            font-size: 0.7rem;
+            font-weight: bold;
+            z-index: 1;
+        }
+        
+        .thumbnail-container { 
+            position: relative; 
+        }
+        
+        .thumbnail { 
+            width: 100%; 
+            display: block; 
+            aspect-ratio: 16 / 9; 
+            object-fit: cover; 
+            transition: transform 0.5s;
+        }
+        
+        .video-card:hover .thumbnail {
+            transform: scale(1.05);
+        }
+        
+        .category-tag { 
+            position: absolute; 
+            top: 10px; 
+            left: 10px; 
+            background: rgba(0, 0, 0, 0.7); 
+            color: white; 
+            padding: 6px 12px; 
+            border-radius: 5px; 
+            font-size: 0.8rem; 
+            font-weight: 600; 
+        }
+        
+        .card-content { 
+            padding: 20px; 
+            flex-grow: 1; 
+            display: flex; 
+            flex-direction: column; 
+        }
+        
+        .video-title { 
+            font-size: 1.2rem; 
+            font-weight: 600; 
+            margin-bottom: 10px; 
+            line-height: 1.4; 
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            color: var(--text-dark);
+        }
+        
+        .video-description { 
+            font-size: 0.9rem; 
+            color: var(--text-light); 
+            margin-bottom: 15px; 
+            flex-grow: 1; 
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+        
+        .video-meta {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.8rem;
+            color: var(--text-light);
+            margin-bottom: 15px;
+        }
+        
+        /* Button Group */
+        .button-group { 
+            display: flex; 
+            gap: 10px; 
+            margin-top: auto; 
+            align-items: center; 
+        }
+        
+        .btn { 
+            flex: 1; 
+            padding: 10px; 
+            border: none; 
+            border-radius: 6px; 
+            font-weight: 600; 
+            color: white; 
+            cursor: pointer; 
+            transition: all 0.3s ease; 
+            text-align: center; 
+            text-decoration: none; 
+            display: block; 
+        }
+        
+        .btn-watch { 
+            background: var(--primary-color); 
+        }
+        
+        .btn-download { 
+            background: var(--accent-color); 
+        }
+        
+        .btn:hover { 
+            transform: translateY(-2px); 
+            box-shadow: 0 5px 10px rgba(0,0,0,0.1); 
+        }
+        
+        .btn-watch:hover {
+            background: var(--primary-dark);
+        }
+        
+        .action-btn { 
+            background: transparent; 
+            border: none; 
+            color: var(--text-light); 
+            font-size: 1.3rem; 
+            cursor: pointer; 
+            transition: color 0.3s, transform 0.3s; 
+            padding: 5px; 
+        }
+        
+        .action-btn:hover { 
+            color: var(--primary-color); 
+            transform: scale(1.1); 
+        }
+        
+        .action-btn.active { 
+            color: var(--primary-color); 
+        }
+        
+        /* Load More Button */
+        .load-more-container { 
+            text-align: center; 
+            padding: 40px 0; 
+        }
+        
+        .load-more-btn { 
+            background: var(--primary-color); 
+            color: white; 
+            border: none; 
+            padding: 14px 35px; 
+            border-radius: 8px; 
+            font-size: 1rem; 
+            font-weight: 600; 
+            cursor: pointer; 
+            transition: all 0.3s ease; 
+        }
+        
+        .load-more-btn:hover { 
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-hover); 
+            background: var(--primary-dark);
+        }
+        
+        /* FAQ Section */
+        .faq-section {
+            margin: 60px 0;
+            padding: 40px 0;
+            border-top: 1px solid var(--border-color);
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        .faq-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .faq-item {
+            margin-bottom: 15px;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        
+        .faq-question {
+            padding: 20px;
+            background: var(--card-bg);
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 500;
+            transition: all 0.3s;
+        }
+        
+        .faq-question:hover {
+            background: var(--primary-light);
+        }
+        
+        .faq-question i {
+            transition: transform 0.3s;
+            color: var(--primary-color);
+        }
+        
+        .faq-answer {
+            padding: 0 20px;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease, padding 0.3s ease;
+            background: var(--bg-color);
+            line-height: 1.6;
+        }
+        
+        .faq-item.active .faq-answer {
+            max-height: 500px;
+            padding: 20px;
+        }
+        
+        .faq-item.active .faq-question i {
+            transform: rotate(180deg);
+        }
+        
+        /* Footer */
+        .footer {
+            background: var(--card-bg);
+            padding: 60px 0 30px;
+            border-top: 1px solid var(--border-color);
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+        
+        .footer-column h3 {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            color: var(--text-dark);
+        }
+        
+        .footer-column ul {
+            list-style: none;
+        }
+        
+        .footer-column ul li {
+            margin-bottom: 10px;
+        }
+        
+        .footer-column ul li a {
+            text-decoration: none;
+            color: var(--text-light);
+            transition: color 0.3s;
+            cursor: pointer;
+        }
+        
+        .footer-column ul li a:hover {
+            color: var(--primary-color);
+        }
+        
+        .footer-bottom {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid var(--border-color);
+            color: var(--text-light);
+            font-size: 0.9rem;
+        }
+        
+        /* Mobile Menu */
+        .hamburger-menu { 
+            font-size: 1.5rem; 
+            cursor: pointer; 
+            color: var(--primary-color);
+            display: none;
+        }
+        
+        .sidenav { 
+            height: 100%; 
+            width: 0; 
+            position: fixed; 
+            z-index: 2000; 
+            top: 0; 
+            left: 0; 
+            background-color: var(--bg-color); 
+            overflow-x: hidden; 
+            transition: 0.5s; 
+            padding-top: 80px; 
+            box-shadow: 5px 0 15px rgba(0,0,0,0.1);
+            border-right: 1px solid var(--border-color);
+        }
+        
+        .sidenav a { 
+            padding: 12px 15px 12px 32px; 
+            text-decoration: none; 
+            font-size: 1.2rem; 
+            color: var(--text-light); 
+            display: block; 
+            transition: 0.3s; 
+            border-bottom: 1px solid var(--border-color);
+            cursor: pointer;
+        }
+        
+        .sidenav a:hover { 
+            color: var(--primary-color); 
+            background-color: var(--primary-light);
+        }
+        
+        .sidenav .close-btn { 
+            position: absolute; 
+            top: 20px; 
+            right: 25px; 
+            font-size: 36px; 
+            color: var(--primary-color);
+        }
+
+        /* Notification */
+        .notification-container { 
+            position: relative; 
+        }
+        
+        .notification-bell { 
+            font-size: 1.5rem; 
+            cursor: pointer; 
+            color: var(--text-light);
+            transition: all 0.3s;
+            padding: 8px;
+        }
+        
+        .notification-bell:hover {
+            color: var(--primary-color);
+            transform: scale(1.1);
+        }
+        
+        .notification-count {
+            position: absolute; 
+            top: 0; 
+            right: 0; 
+            background-color: var(--accent-color); 
+            color: white;
+            border-radius: 50%; 
+            width: 18px; 
+            height: 18px; 
+            display: flex; 
+            justify-content: center; 
+            align-items: center;
+            font-size: 0.6rem; 
+            font-weight: 600; 
+        }
+        
+        .notification-panel {
+            position: absolute; 
+            top: 45px; 
+            right: 0; 
+            width: 350px; 
+            background-color: var(--bg-color);
+            border: 1px solid var(--border-color); 
+            border-radius: 10px; 
+            box-shadow: var(--shadow-hover);
+            z-index: 2002; 
+            max-height: 400px; 
+            overflow-y: auto;
+            display: none;
+        }
+        
+        .notification-panel h4 { 
+            padding: 15px; 
+            margin: 0; 
+            border-bottom: 1px solid var(--border-color); 
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: var(--text-dark);
+        }
+        
+        .clear-notifications {
+            background: transparent;
+            border: none;
+            color: var(--primary-color);
+            cursor: pointer;
+            font-size: 0.8rem;
+            transition: all 0.3s;
+        }
+        
+        .clear-notifications:hover {
+            color: var(--primary-dark);
+        }
+        
+        .notification-item { 
+            display: flex; 
+            align-items: center; 
+            gap: 15px; 
+            padding: 12px 15px; 
+            cursor: pointer; 
+            transition: background-color 0.3s; 
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        .notification-item:hover { 
+            background-color: var(--primary-light); 
+        }
+        
+        .notification-item img { 
+            width: 80px; 
+            height: 45px; 
+            object-fit: cover; 
+            border-radius: 5px; 
+            border: 1px solid var(--border-color);
+        }
+        
+        .notification-item p { 
+            font-size: 0.9rem; 
+            line-height: 1.3; 
+            margin: 0; 
+        }
+        
+        .notification-item span { 
+            font-size: 0.7rem; 
+            color: var(--text-light); 
+        }
+        
+        /* Toast Notification */
+        .toast {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%) translateY(100px);
+            background: var(--primary-color);
+            color: white;
+            padding: 15px 25px;
+            border-radius: 8px;
+            box-shadow: var(--shadow-hover);
+            z-index: 1001;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: transform 0.4s ease;
+            max-width: 400px;
+            width: 90%;
+        }
+        
+        .toast.show {
+            transform: translateX(-50%) translateY(0);
+        }
+        
+        .toast.success {
+            background: var(--accent-color);
+        }
+        
+        .toast.warning {
+            background: #FF6B6B;
+        }
+        
+        .toast-icon {
+            font-size: 1.2rem;
+        }
+        
+        .toast-message {
+            font-weight: 500;
+        }
+        
+        /* WhatsApp Button */
+        .whatsapp-button {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: #25D366;
+            color: white;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.8rem;
+            box-shadow: var(--shadow-hover);
+            z-index: 99;
+            transition: all 0.3s;
+            text-decoration: none;
+        }
+        
+        .whatsapp-button:hover {
+            transform: scale(1.1);
+        }
+        
+        /* Responsive */
+        @media (max-width: 992px) { 
+            .video-grid,
+            .footer-content { 
+                grid-template-columns: repeat(2, 1fr); 
+            } 
+        }
+        
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+            
+            .hero p {
+                font-size: 1rem;
+            }
+            
+            .nav-menu { 
+                display: none; 
+            }
+            
+            .hamburger-menu {
+                display: block;
+            }
+            
+            .logo { 
+                font-size: 1.5rem; 
+            }
+            
+            .video-grid,
+            .footer-content { 
+                grid-template-columns: 1fr; 
+            }
+            
+            .header {
+                padding: 15px 0;
+            }
+            
+            .categories-grid {
+                grid-template-columns: repeat(4, 1fr);
+            }
+            
+            .notification-panel {
+                width: 300px;
+                right: -50px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .container {
+                padding: 0 15px;
+            }
+            
+            .hero {
+                padding: 60px 0;
+            }
+            
+            .hero h1 {
+                font-size: 1.8rem;
+            }
+            
+            .search-bar {
+                padding: 12px 20px;
+            }
+            
+            .button-group {
+                flex-wrap: wrap;
+            }
+            
+            .btn {
+                flex: 1 0 45%;
+                margin-bottom: 5px;
+            }
+            
+            .action-btn {
+                flex: 1 0 20%;
+            }
+            
+            .categories-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+            
+            .footer-content {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+            
+            .notification-panel {
+                width: 280px;
+                right: -80px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header container">
+        <div class="header-left">
+            <div class="hamburger-menu" id="openNavBtn">
+                <i class="fas fa-bars"></i>
+            </div>
+            <div class="logo">
+                <span class="logo-icon"><i class="fas fa-play-circle"></i></span> VidDrill
+                <span class="premium-badge">PREMIUM</span>
+            </div>
+        </div>
+        <div class="header-right">
+            <div class="notification-container">
+                <div id="notificationBell" class="notification-bell">
+                    <i class="fas fa-bell"></i>
+                    <span id="notificationCount" class="notification-count">3</span>
+                </div>
+                <div id="notificationPanel" class="notification-panel">
+                    <!-- Notifications will be added here by JavaScript -->
+                </div>
+            </div>
+            <nav class="nav-menu">
+                <button class="nav-link active" data-filter="all"><i class="fas fa-globe"></i> All</button>
+                <button class="nav-link" data-filter="movies"><i class="fas fa-film"></i> Movies</button>
+                <button class="nav-link" data-filter="reels"><i class="fas fa-video"></i> Reels</button>
+                <button class="nav-link" data-filter="music"><i class="fas fa-music"></i> Music</button>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Sidenav for Mobile -->
+    <div id="mySidenav" class="sidenav">
+        <a href="javascript:void(0)" class="close-btn" id="closeNavBtn">&times;</a>
+        <a href="#" id="homeBtn"><i class="fas fa-home"></i> Home</a> 
+        <a href="#" id="recentlyWatchedBtn"><i class="fas fa-history"></i> Recently Watched</a>
+        <a href="#" id="watchLaterBtn"><i class="fas fa-bookmark"></i> Watch Later</a>
+        <a href="#" id="favoritesBtn"><i class="fas fa-heart"></i> Favorites</a>
+    </div>
+
+    <!-- Toast Notification -->
+    <div class="toast" id="toast">
+        <span class="toast-icon" id="toastIcon">✅</span>
+        <span class="toast-message" id="toastMessage">Action completed successfully!</span>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <h1>PREMIUM Experience</h1>
+            <p>Discover the ultimate video streaming experience with exclusive content and premium features.</p>
+        </div>
+    </section>
+
+    <main class="container">
+        <!-- Search Section -->
+        <div class="search-container">
+            <input type="search" id="searchBar" class="search-bar" placeholder="🔍 Search for videos...">
+        </div>
+
+        <!-- Categories Section -->
+        <section class="categories-section">
+            <h2 class="section-title">Browse Categories</h2>
+            <div class="categories-grid">
+                <div class="category-card active" data-category="all">
+                    <div class="category-icon">🌐</div>
+                    <div class="category-name">All</div>
+                </div>
+                <div class="category-card" data-category="movies">
+                    <div class="category-icon">🎬</div>
+                    <div class="category-name">Movies</div>
+                </div>
+                <div class="category-card" data-category="reels">
+                    <div class="category-icon">📸</div>
+                    <div class="category-name">Reels</div>
+                </div>
+                <div class="category-card" data-category="music">
+                    <div class="category-icon">🎵</div>
+                    <div class="category-name">Music</div>
+                </div>
+                <div class="category-card" data-category="funny">
+                    <div class="category-icon">😂</div>
+                    <div class="category-name">Funny</div>
+                </div>
+                <div class="category-card" data-category="gaming">
+                    <div class="category-icon">🎮</div>
+                    <div class="category-name">Gaming</div>
+                </div>
+                <div class="category-card" data-category="tech">
+                    <div class="category-icon">💻</div>
+                    <div class="category-name">Tech</div>
+                </div>
+                <!-- New Categories Added -->
+                <div class="category-card" data-category="education">
+                    <div class="category-icon">📚</div>
+                    <div class="category-name">Education</div>
+                </div>
+                <div class="category-card" data-category="course">
+                    <div class="category-icon">🎓</div>
+                    <div class="category-name">Courses</div>
+                </div>
+                <div class="category-card" data-category="trending">
+                    <div class="category-icon">🔥</div>
+                    <div class="category-name">Trending</div>
+                </div>
+                <div class="category-card" data-category="roast">
+                    <div class="category-icon">🍗</div>
+                    <div class="category-name">Roast</div>
+                </div>
+                <div class="category-card" data-category="cricket">
+                    <div class="category-icon">🏏</div>
+                    <div class="category-name">Cricket</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Popular Videos Section -->
+        <section class="popular-section">
+            <h2 class="section-title">Popular Videos</h2>
+            <div class="video-grid" id="videoGrid">
+                <!-- Video cards will be dynamically inserted here -->
+            </div>
+        </section>
+
+        <div class="load-more-container">
+            <button id="loadMoreBtn" class="load-more-btn"><i class="fas fa-plus-circle"></i> Load More Videos</button>
+        </div>
+
+        <!-- FAQ Section -->
+        <section class="faq-section">
+            <h2 class="section-title">Frequently Asked Questions</h2>
+            <div class="faq-container">
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>What makes VidDrill different from other video platforms?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        VidDrill offers a premium experience with exclusive content, high-quality streaming, and advanced features like offline downloads, personalized recommendations, and ad-free viewing. Our platform is designed for true video enthusiasts who value quality and convenience.
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>How can I download videos for offline viewing?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        Simply click the download button on any video card. Premium users can download videos in multiple quality options and watch them offline without any time restrictions. Downloads are available for 30 days before they need to be renewed.
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>Is there a limit to how many videos I can watch?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        No, there are no viewing limits for premium users. You can watch as many videos as you want, whenever you want. Our platform is designed to provide unlimited access to our entire content library.
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>Can I share my account with family members?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        While we don't allow account sharing for individual plans, we offer family plans that allow up to 5 simultaneous streams. Contact our support team to learn more about family plan options and pricing.
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>What video qualities are available for streaming?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        We support streaming in multiple qualities including 480p, 720p, 1080p, and 4K Ultra HD. The available quality depends on your internet connection and the original video quality. Most of our content is available in at least 1080p.
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>How do I contact customer support?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        You can contact our 24/7 customer support through the WhatsApp button in the bottom right corner, email us at support@viddrill.com, or use the live chat feature on our website. Premium members receive priority support with faster response times.
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>VidDrill</h3>
+                    <p style="color: var(--text-light);">Experience premium video streaming with cutting-edge technology and exclusive content. Join millions of satisfied users worldwide.</p>
+                </div>
+                <div class="footer-column">
+                    <h3>Explore</h3>
+                    <ul>
+                        <li><a class="footer-link" data-page="home">Home</a></li>
+                        <li><a class="footer-link" data-page="trending">Trending Videos</a></li>
+                        <li><a class="footer-link" data-page="new">New Releases</a></li>
+                        <li><a class="footer-link" data-page="premium">Premium Content</a></li>
+                        <li><a class="footer-link" data-page="exclusive">Exclusive Series</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Company</h3>
+                    <ul>
+                        <li><a class="footer-link" data-page="about">About Us</a></li>
+                        <li><a class="footer-link" data-page="careers">Careers</a></li>
+                        <li><a class="footer-link" data-page="press">Press</a></li>
+                        <li><a class="footer-link" data-page="partners">Partnerships</a></li>
+                        <li><a class="footer-link" data-page="investors">Investor Relations</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Support</h3>
+                    <ul>
+                        <li><a class="footer-link" data-page="help">Help Center</a></li>
+                        <li><a class="footer-link" data-page="community">Community</a></li>
+                        <li><a class="footer-link" data-page="contact">Contact Us</a></li>
+                        <li><a class="footer-link" data-page="status">System Status</a></li>
+                        <li><a class="footer-link" data-page="report">Report Issue</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2023 VidDrill. All rights reserved. | <a class="footer-link" data-page="privacy" style="color: var(--primary-color);">Privacy Policy</a> | <a class="footer-link" data-page="terms" style="color: var(--primary-color);">Terms of Service</a> | <a class="footer-link" data-page="cookies" style="color: var(--primary-color);">Cookie Policy</a></p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- WhatsApp Button -->
+    <a href="https://wa.me/7817934583" class="whatsapp-button" target="_blank">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+
+    <script>
+    // Sample video data
+    const videoData = [
+        {
+            id: 1, 
+            category: 'movies', 
+            title: 'Housefull 5 – Double Dhamaka, Triple Hungama! 😂🔥', 
+            thumbnail: 'https://i.postimg.cc/vT7qJPJV/IMG-20251022-124206-065.jpg', 
+            description: 'Iss baar comedy aur confusion dono 5X ho gaya hai! Akshay Kumar aur unki team wapas aayi hai ek aur pagalpanti bhari kahani ke saath — jahan har scene me hungama guaranteed hai! 💥🎬.', 
+            watchLink: 'https://vidbunker.in/watch/4327a87850f6', 
+            downloadLink: 'https://vidbunker.in/watch/4327a87850f6', 
+            ratio: '16-9',
+            uploadDate: '2025-10-21'
+        },
+        { 
+            id: 11, 
+            category: 'reels', 
+            title: 'Amazing Dance Reel', 
+            thumbnail: 'https://i.imgur.com/k6pTzmy.jpeg', 
+            description: 'Incredible dance moves in a short, energetic reel that will leave you amazed.', 
+            watchLink: 'https://www.youtube.com/embed/C2iI29a9gT4', 
+            downloadLink: '#', 
+            ratio: '9-16',
+            uploadDate: '2023-11-20',
+            isNew: true
+        },
+        {  
+            id: 12, 
+            category: 'reels', 
+            title: 'Amazing Dance Reel', 
+            thumbnail: 'https://i.imgur.com/k6pTzmy.jpeg', 
+            description: 'Incredible dance moves in a short, energetic reel that will leave you amazed.', 
+            watchLink: 'https://www.youtube.com/embed/C2iI29a9gT4', 
+            downloadLink: '#', 
+            ratio: '9-16',
+            uploadDate: '2023-11-20',
+            isNew: true
+        },
+        {
+            id: 13, 
+            category: 'reels', 
+            title: 'Amazing Dance Reel', 
+            thumbnail: 'https://i.imgur.com/k6pTzmy.jpeg', 
+            description: 'Incredible dance moves in a short, energetic reel that will leave you amazed.', 
+            watchLink: 'https://www.youtube.com/embed/C2iI29a9gT4', 
+            downloadLink: '#', 
+            ratio: '9-16',
+            uploadDate: '2023-11-20',
+            isNew: true
+        },
+        { 
+            id: 14, 
+            category: 'reels', 
+            title: 'Amazing Dance Reel', 
+            thumbnail: 'https://i.imgur.com/k6pTzmy.jpeg', 
+            description: 'Incredible dance moves in a short, energetic reel that will leave you amazed.', 
+            watchLink: 'https://www.youtube.com/embed/C2iI29a9gT4', 
+            downloadLink: '#', 
+            ratio: '9-16',
+            uploadDate: '2023-11-20',
+            isNew: true
+        },
+        { 
+            id: 15, 
+            category: 'reels', 
+            title: 'Amazing Dance Reel', 
+            thumbnail: 'https://i.imgur.com/k6pTzmy.jpeg', 
+            description: 'Incredible dance moves in a short, energetic reel that will leave you amazed.', 
+            watchLink: 'https://www.youtube.com/embed/C2iI29a9gT4', 
+            downloadLink: '#', 
+            ratio: '9-16',
+            uploadDate: '2023-11-20',
+            isNew: true
+        },
+        {
+            id: 16, 
+            category: 'reels', 
+            title: 'Amazing Dance Reel', 
+            thumbnail: 'https://i.imgur.com/k6pTzmy.jpeg', 
+            description: 'Incredible dance moves in a short, energetic reel that will leave you amazed.', 
+            watchLink: 'https://www.youtube.com/embed/C2iI29a9gT4', 
+            downloadLink: '#', 
+            ratio: '9-16',
+            uploadDate: '2023-11-20',
+            isNew: true
+         },
+         {
+            id: 17, 
+            category: 'reels', 
+            title: 'Amazing Dance Reel', 
+            thumbnail: 'https://i.imgur.com/k6pTzmy.jpeg', 
+            description: 'Incredible dance moves in a short, energetic reel that will leave you amazed.', 
+            watchLink: 'https://www.youtube.com/embed/C2iI29a9gT4', 
+            downloadLink: '#', 
+            ratio: '9-16',
+            uploadDate: '2023-11-20',
+            isNew: true
+         },
+         {
+            id: 18, 
+            category: 'reels', 
+            title: 'Amazing Dance Reel', 
+            thumbnail: 'https://i.imgur.com/k6pTzmy.jpeg', 
+            description: 'Incredible dance moves in a short, energetic reel that will leave you amazed.', 
+            watchLink: 'https://www.youtube.com/embed/C2iI29a9gT4', 
+            downloadLink: '#', 
+            ratio: '9-16',
+            uploadDate: '2023-11-20',
+            isNew: true
+         },
+         {
+            id: 19, 
+            category: 'reels', 
+            title: 'Amazing Dance Reel', 
+            thumbnail: 'https://i.imgur.com/k6pTzmy.jpeg', 
+            description: 'Incredible dance moves in a short, energetic reel that will leave you amazed.', 
+            watchLink: 'https://www.youtube.com/embed/C2iI29a9gT4', 
+            downloadLink: '#', 
+            ratio: '9-16',
+            uploadDate: '2023-11-20',
+            isNew: true
+         },
+         {
+            id: 20, 
+            category: 'reels', 
+            title: 'Amazing Dance Reel', 
+            thumbnail: 'https://i.imgur.com/k6pTzmy.jpeg', 
+            description: 'Incredible dance moves in a short, energetic reel that will leave you amazed.', 
+            watchLink: 'https://www.youtube.com/embed/C2iI29a9gT4', 
+            downloadLink: '#', 
+            ratio: '9-16',
+            uploadDate: '2023-11-20',
+            isNew: true
+         },
+         {
+            id: 21, 
+            category: 'reels', 
+            title: 'Amazing Dance Reel', 
+            thumbnail: 'https://i.imgur.com/k6pTzmy.jpeg', 
+            description: 'Incredible dance moves in a short, energetic reel that will leave you amazed.', 
+            watchLink: 'https://www.youtube.com/embed/C2iI29a9gT4', 
+            downloadLink: '#', 
+            ratio: '9-16',
+            uploadDate: '2023-11-20',
+            isNew: true
+         },
+         {
+            id: 22, 
+            category: 'reels', 
+            title: 'Amazing Dance Reel', 
+            thumbnail: 'https://i.imgur.com/k6pTzmy.jpeg', 
+            description: 'Incredible dance moves in a short, energetic reel that will leave you amazed.', 
+            watchLink: 'https://www.youtube.com/embed/C2iI29a9gT4', 
+            downloadLink: '#', 
+            ratio: '9-16',
+            uploadDate: '2023-11-20',
+            isNew: true
+        },
+        {
+           id: 23, 
+            category: 'reels', 
+            title: 'Amazing Dance Reel', 
+            thumbnail: 'https://i.imgur.com/k6pTzmy.jpeg', 
+            description: 'Incredible dance moves in a short, energetic reel that will leave you amazed.', 
+            watchLink: 'https://www.youtube.com/embed/C2iI29a9gT4', 
+            downloadLink: '#', 
+            ratio: '9-16',
+            uploadDate: '2023-11-20',
+            isNew: true
+        },
+        { 
+            id: 24, 
+            category: 'reels', 
+            title: 'Amazing Dance Reel', 
+            thumbnail: 'https://i.imgur.com/k6pTzmy.jpeg', 
+            description: 'Incredible dance moves in a short, energetic reel that will leave you amazed.', 
+            watchLink: 'https://www.youtube.com/embed/C2iI29a9gT4', 
+            downloadLink: '#', 
+            ratio: '9-16',
+            uploadDate: '2023-11-20',
+            isNew: true
+        },
+        {
+            id: 25, 
+            category: 'reels', 
+            title: 'Amazing Dance Reel', 
+            thumbnail: 'https://i.imgur.com/k6pTzmy.jpeg', 
+            description: 'Incredible dance moves in a short, energetic reel that will leave you amazed.', 
+            watchLink: 'https://www.youtube.com/embed/C2iI29a9gT4', 
+            downloadLink: '#', 
+            ratio: '9-16',
+            uploadDate: '2023-11-20',
+            isNew: true
+        },
+        { 
+            id: 26, 
+            category: 'reels', 
+            title: 'Amazing Dance Reel', 
+            thumbnail: 'https://i.imgur.com/k6pTzmy.jpeg', 
+            description: 'Incredible dance moves in a short, energetic reel that will leave you amazed.', 
+            watchLink: 'https://www.youtube.com/embed/C2iI29a9gT4', 
+            downloadLink: '#', 
+            ratio: '9-16',
+            uploadDate: '2023-11-20',
+            isNew: true
+        },
+        { 
+            id: 27, 
+            category: 'reels', 
+            title: 'Amazing Dance Reel', 
+            thumbnail: 'https://i.imgur.com/k6pTzmy.jpeg', 
+            description: 'Incredible dance moves in a short, energetic reel that will leave you amazed.', 
+            watchLink: 'https://www.youtube.com/embed/C2iI29a9gT4', 
+            downloadLink: '#', 
+            ratio: '9-16',
+            uploadDate: '2023-11-20',
+            isNew: true
+        },
+        { 
+            id: 28, 
+            category: 'reels', 
+            title: 'Amazing Dance Reel', 
+            thumbnail: 'https://i.imgur.com/k6pTzmy.jpeg', 
+            description: 'Incredible dance moves in a short, energetic reel that will leave you amazed.', 
+            watchLink: 'https://www.youtube.com/embed/C2iI29a9gT4', 
+            downloadLink: '#', 
+            ratio: '9-16',
+            uploadDate: '2023-11-20',
+            isNew: true
+        },
+        { 
+            id: 29, 
+            category: 'reels', 
+            title: 'Amazing Dance Reel', 
+            thumbnail: 'https://i.imgur.com/k6pTzmy.jpeg', 
+            description: 'Incredible dance moves in a short, energetic reel that will leave you amazed.', 
+            watchLink: 'https://www.youtube.com/embed/C2iI29a9gT4', 
+            downloadLink: '#', 
+            ratio: '9-16',
+            uploadDate: '2023-11-20',
+            isNew: true
+        },
+        { 
+            id: 30, 
+            category: 'reels', 
+            title: 'Amazing Dance Reel', 
+            thumbnail: 'https://i.imgur.com/k6pTzmy.jpeg', 
+            description: 'Incredible dance moves in a short, energetic reel that will leave you amazed.', 
+            watchLink: 'https://www.youtube.com/embed/C2iI29a9gT4', 
+            downloadLink: '#', 
+            ratio: '9-16',
+            uploadDate: '2023-11-20',
+            isNew: true
+        },
+        { 
+            id: 32, 
+            category: 'reels', 
+            title: 'Amazing Dance Reel', 
+            thumbnail: 'https://i.imgur.com/k6pTzmy.jpeg', 
+            description: 'Incredible dance moves in a short, energetic reel that will leave you amazed.', 
+            watchLink: 'https://www.youtube.com/embed/C2iI29a9gT4', 
+            downloadLink: '#', 
+            ratio: '9-16',
+            uploadDate: '2023-11-20',
+            isNew: true
+        },
+        { 
+            id: 33, 
+            category: 'reels', 
+            title: 'Amazing Dance Reel', 
+            thumbnail: 'https://i.imgur.com/k6pTzmy.jpeg', 
+            description: 'Incredible dance moves in a short, energetic reel that will leave you amazed.', 
+            watchLink: 'https://www.youtube.com/embed/C2iI29a9gT4', 
+            downloadLink: '#', 
+            ratio: '9-16',
+            uploadDate: '2023-11-20',
+            isNew: true
+        },
+        { 
+            id: 34, 
+            category: 'reels', 
+            title: 'Amazing Dance Reel', 
+            thumbnail: 'https://i.imgur.com/k6pTzmy.jpeg', 
+            description: 'Incredible dance moves in a short, energetic reel that will leave you amazed.', 
+            watchLink: 'https://www.youtube.com/embed/C2iI29a9gT4', 
+            downloadLink: '#', 
+            ratio: '9-16',
+            uploadDate: '2023-11-20',
+            isNew: true
+        },
+        { 
+            id: 35, 
+            category: 'reels', 
+            title: 'Amazing Dance Reel', 
+            thumbnail: 'https://i.imgur.com/k6pTzmy.jpeg', 
+            description: 'Incredible dance moves in a short, energetic reel that will leave you amazed.', 
+            watchLink: 'https://www.youtube.com/embed/C2iI29a9gT4', 
+            downloadLink: '#', 
+            ratio: '9-16',
+            uploadDate: '2023-11-20',
+            isNew: true
+        },
+        { 
+           id: 36, 
+            category: 'reels', 
+            title: 'Amazing Dance Reel', 
+            thumbnail: 'https://i.imgur.com/k6pTzmy.jpeg', 
+            description: 'Incredible dance moves in a short, energetic reel that will leave you amazed.', 
+            watchLink: 'https://www.youtube.com/embed/C2iI29a9gT4', 
+            downloadLink: '#', 
+            ratio: '9-16',
+            uploadDate: '2023-11-20',
+            isNew: true
+        },
+        { 
+            id: 37, 
+            category: 'reels', 
+            title: 'Amazing Dance Reel', 
+            thumbnail: 'https://i.imgur.com/k6pTzmy.jpeg', 
+            description: 'Incredible dance moves in a short, energetic reel that will leave you amazed.', 
+            watchLink: 'https://www.youtube.com/embed/C2iI29a9gT4', 
+            downloadLink: '#', 
+            ratio: '9-16',
+            uploadDate: '2023-11-20',
+            isNew: true
+        },
+        { 
+            id: 38, 
+            category: 'reels', 
+            title: 'Amazing Dance Reel', 
+            thumbnail: 'https://i.imgur.com/k6pTzmy.jpeg', 
+            description: 'Incredible dance moves in a short, energetic reel that will leave you amazed.', 
+            watchLink: 'https://www.youtube.com/embed/C2iI29a9gT4', 
+            downloadLink: '#', 
+            ratio: '9-16',
+            uploadDate: '2023-11-20',
+            isNew: true
+        },
+        { 
+            id: 39, 
+            category: 'reels', 
+            title: 'Amazing Dance Reel', 
+            thumbnail: 'https://i.imgur.com/k6pTzmy.jpeg', 
+            description: 'Incredible dance moves in a short, energetic reel that will leave you amazed.', 
+            watchLink: 'https://www.youtube.com/embed/C2iI29a9gT4', 
+            downloadLink: '#', 
+            ratio: '9-16',
+            uploadDate: '2023-11-20',
+            isNew: true
+        },
+        { 
+            id: 40, 
+            category: 'reels', 
+            title: 'Amazing Dance Reel', 
+            thumbnail: 'https://i.imgur.com/k6pTzmy.jpeg', 
+            description: 'Incredible dance moves in a short, energetic reel that will leave you amazed.', 
+            watchLink: 'https://www.youtube.com/embed/C2iI29a9gT4', 
+            downloadLink: '#', 
+            ratio: '9-16',
+            uploadDate: '2023-11-20',
+            isNew: true
+        },
+        { 
+            id: 41, 
+            category: 'reels', 
+            title: 'Amazing Dance Reel', 
+            thumbnail: 'https://i.imgur.com/k6pTzmy.jpeg', 
+            description: 'Incredible dance moves in a short, energetic reel that will leave you amazed.', 
+            watchLink: 'https://www.youtube.com/embed/C2iI29a9gT4', 
+            downloadLink: '#', 
+            ratio: '9-16',
+            uploadDate: '2023-11-20',
+            isNew: true
+        },
+        { 
+            id: 43, 
+            category: 'reels', 
+            title: 'Amazing Dance Reel', 
+            thumbnail: 'https://i.imgur.com/k6pTzmy.jpeg', 
+            description: 'Incredible dance moves in a short, energetic reel that will leave you amazed.', 
+            watchLink: 'https://www.youtube.com/embed/C2iI29a9gT4', 
+            downloadLink: '#', 
+            ratio: '9-16',
+            uploadDate: '2023-11-20',
+            isNew: true
+        },
+        { 
+            id: 44, 
+            category: 'reels', 
+            title: 'Amazing Dance Reel', 
+            thumbnail: 'https://i.imgur.com/k6pTzmy.jpeg', 
+            description: 'Incredible dance moves in a short, energetic reel that will leave you amazed.', 
+            watchLink: 'https://www.youtube.com/embed/C2iI29a9gT4', 
+            downloadLink: '#', 
+            ratio: '9-16',
+            uploadDate: '2023-11-20',
+            isNew: true
+        },
+        { 
+            id: 45, 
+            category: 'reels', 
+            title: 'Amazing Dance Reel', 
+            thumbnail: 'https://i.imgur.com/k6pTzmy.jpeg', 
+            description: 'Incredible dance moves in a short, energetic reel that will leave you amazed.', 
+            watchLink: 'https://www.youtube.com/embed/C2iI29a9gT4', 
+            downloadLink: '#', 
+            ratio: '9-16',
+            uploadDate: '2023-11-20',
+            isNew: true
+        },
+        { 
+            id: 46, 
+            category: 'reels', 
+            title: 'Amazing Dance Reel', 
+            thumbnail: 'https://i.imgur.com/k6pTzmy.jpeg', 
+            description: 'Incredible dance moves in a short, energetic reel that will leave you amazed.', 
+            watchLink: 'https://www.youtube.com/embed/C2iI29a9gT4', 
+            downloadLink: '#', 
+            ratio: '9-16',
+            uploadDate: '2023-11-20',
+            isNew: true
+        },
+        { 
+            id: 47, 
+            category: 'reels', 
+            title: 'Amazing Dance Reel', 
+            thumbnail: 'https://i.imgur.com/k6pTzmy.jpeg', 
+            description: 'Incredible dance moves in a short, energetic reel that will leave you amazed.', 
+            watchLink: 'https://www.youtube.com/embed/C2iI29a9gT4', 
+            downloadLink: '#', 
+            ratio: '9-16',
+            uploadDate: '2023-11-20',
+            isNew: true
+
+        },
+        {
+            id: 48, 
+            category: 'reels', 
+            title: 'Amazing Dance Reel', 
+            thumbnail: 'https://i.imgur.com/k6pTzmy.jpeg', 
+            description: 'Incredible dance moves in a short, energetic reel that will leave you amazed.', 
+            watchLink: 'https://www.youtube.com/embed/C2iI29a9gT4', 
+            downloadLink: '#', 
+            ratio: '9-16',
+            uploadDate: '2023-11-20',
+            isNew: true
+        },
+        { 
+            id: 55, 
+            category: 'reels', 
+            title: 'Amazing Dance Reel', 
+            thumbnail: 'https://i.imgur.com/k6pTzmy.jpeg', 
+            description: 'Incredible dance moves in a short, energetic reel that will leave you amazed.', 
+            watchLink: 'https://www.youtube.com/embed/C2iI29a9gT4', 
+            downloadLink: '#', 
+            ratio: '9-16',
+            uploadDate: '2023-11-20',
+            isNew: true
+        },
+        { 
+            id: 56, 
+            category: 'reels', 
+            title: 'Amazing Dance Reel', 
+            thumbnail: 'https://i.imgur.com/k6pTzmy.jpeg', 
+            description: 'Incredible dance moves in a short, energetic reel that will leave you amazed.', 
+            watchLink: 'https://www.youtube.com/embed/C2iI29a9gT4', 
+            downloadLink: '#', 
+            ratio: '9-16',
+            uploadDate: '2023-11-20',
+            isNew: true
+        },
+        { 
+            id: 57, 
+            category: 'reels', 
+            title: 'Amazing Dance Reel', 
+            thumbnail: 'https://i.imgur.com/k6pTzmy.jpeg', 
+            description: 'Incredible dance moves in a short, energetic reel that will leave you amazed.', 
+            watchLink: 'https://www.youtube.com/embed/C2iI29a9gT4', 
+            downloadLink: '#', 
+            ratio: '9-16',
+            uploadDate: '2023-11-20',
+            isNew: true
+        },
+        { 
+            id: 58, 
+            category: 'reels', 
+            title: 'Amazing Dance Reel', 
+            thumbnail: 'https://i.imgur.com/k6pTzmy.jpeg', 
+            description: 'Incredible dance moves in a short, energetic reel that will leave you amazed.', 
+            watchLink: 'https://www.youtube.com/embed/C2iI29a9gT4', 
+            downloadLink: '#', 
+            ratio: '9-16',
+            uploadDate: '2023-11-20',
+            isNew: true
+        },
+        { 
+            id: 59, 
+            category: 'reels', 
+            title: 'Amazing Dance Reel', 
+            thumbnail: 'https://i.imgur.com/k6pTzmy.jpeg', 
+            description: 'Incredible dance moves in a short, energetic reel that will leave you amazed.', 
+            watchLink: 'https://www.youtube.com/embed/C2iI29a9gT4', 
+            downloadLink: '#', 
+            ratio: '9-16',
+            uploadDate: '2023-11-20',
+            isNew: true
+        },
+        { 
+            id: 60, 
+            category: 'reels', 
+            title: 'Amazing Dance Reel', 
+            thumbnail: 'https://i.imgur.com/k6pTzmy.jpeg', 
+            description: 'Incredible dance moves in a short, energetic reel that will leave you amazed.', 
+            watchLink: 'https://www.youtube.com/embed/C2iI29a9gT4', 
+            downloadLink: '#', 
+            ratio: '9-16',
+            uploadDate: '2023-11-20',
+            isNew: true
+        },
+        { 
+            id: 61, 
+            category: 'reels', 
+            title: 'Amazing Dance Reel', 
+            thumbnail: 'https://i.imgur.com/k6pTzmy.jpeg', 
+            description: 'Incredible dance moves in a short, energetic reel that will leave you amazed.', 
+            watchLink: 'https://www.youtube.com/embed/C2iI29a9gT4', 
+            downloadLink: '#', 
+            ratio: '9-16',
+            uploadDate: '2023-11-20',
+            isNew: true
+        },
+        { 
+            id: 62, 
+            category: 'reels', 
+            title: 'Amazing Dance Reel', 
+            thumbnail: 'https://i.imgur.com/k6pTzmy.jpeg', 
+            description: 'Incredible dance moves in a short, energetic reel that will leave you amazed.', 
+            watchLink: 'https://www.youtube.com/embed/C2iI29a9gT4', 
+            downloadLink: '#', 
+            ratio: '9-16',
+            uploadDate: '2023-11-20',
+            isNew: true
+        },
+        { 
+            id: 63, 
+            category: 'reels', 
+            title: 'Amazing Dance Reel', 
+            thumbnail: 'https://i.imgur.com/k6pTzmy.jpeg', 
+            description: 'Incredible dance moves in a short, energetic reel that will leave you amazed.', 
+            watchLink: 'https://www.youtube.com/embed/C2iI29a9gT4', 
+            downloadLink: '#', 
+            ratio: '9-16',
+            uploadDate: '2023-11-20',
+            isNew: true
+        },
+        { 
+            id: 64, 
+            category: 'reels', 
+            title: 'Amazing Dance Reel', 
+            thumbnail: 'https://i.imgur.com/k6pTzmy.jpeg', 
+            description: 'Incredible dance moves in a short, energetic reel that will leave you amazed.', 
+            watchLink: 'https://www.youtube.com/embed/C2iI29a9gT4', 
+            downloadLink: '#', 
+            ratio: '9-16',
+            uploadDate: '2023-11-20',
+            isNew: true
+        },
+        { 
+            id: 65, 
+            category: 'reels', 
+            title: 'Amazing Dance Reel', 
+            thumbnail: 'https://i.imgur.com/k6pTzmy.jpeg', 
+            description: 'Incredible dance moves in a short, energetic reel that will leave you amazed.', 
+            watchLink: 'https://www.youtube.com/embed/C2iI29a9gT4', 
+            downloadLink: '#', 
+            ratio: '9-16',
+            uploadDate: '2023-11-20',
+            isNew: true
+        },
+        { 
+            id: 66, 
+            category: 'reels', 
+            title: 'Amazing Dance Reel', 
+            thumbnail: 'https://i.imgur.com/k6pTzmy.jpeg', 
+            description: 'Incredible dance moves in a short, energetic reel that will leave you amazed.', 
+            watchLink: 'https://www.youtube.com/embed/C2iI29a9gT4', 
+            downloadLink: '#', 
+            ratio: '9-16',
+            uploadDate: '2023-11-20',
+            isNew: true
+        },
+        { 
+            id: 67, 
+            category: 'reels', 
+            title: 'Amazing Dance Reel', 
+            thumbnail: 'https://i.imgur.com/k6pTzmy.jpeg', 
+            description: 'Incredible dance moves in a short, energetic reel that will leave you amazed.', 
+            watchLink: 'https://www.youtube.com/embed/C2iI29a9gT4', 
+            downloadLink: '#', 
+            ratio: '9-16',
+            uploadDate: '2023-11-20',
+            isNew: true
+        },
+        { 
+            id: 68, 
+            category: 'reels', 
+            title: 'Amazing Dance Reel', 
+            thumbnail: 'https://i.imgur.com/k6pTzmy.jpeg', 
+            description: 'Incredible dance moves in a short, energetic reel that will leave you amazed.', 
+            watchLink: 'https://www.youtube.com/embed/C2iI29a9gT4', 
+            downloadLink: '#', 
+            ratio: '9-16',
+            uploadDate: '2023-11-20',
+            isNew: true
+        },
+        { 
+            id: 69, 
+            category: 'reels', 
+            title: 'Amazing Dance Reel', 
+            thumbnail: 'https://i.imgur.com/k6pTzmy.jpeg', 
+            description: 'Incredible dance moves in a short, energetic reel that will leave you amazed.', 
+            watchLink: 'https://www.youtube.com/embed/C2iI29a9gT4', 
+            downloadLink: '#', 
+            ratio: '9-16',
+            uploadDate: '2023-11-20',
+            isNew: true
+        },
+        { 
+            id: 70, 
+            category: 'reels', 
+            title: 'Amazing Dance Reel', 
+            thumbnail: 'https://i.imgur.com/k6pTzmy.jpeg', 
+            description: 'Incredible dance moves in a short, energetic reel that will leave you amazed.', 
+            watchLink: 'https://www.youtube.com/embed/C2iI29a9gT4', 
+            downloadLink: '#', 
+            ratio: '9-16',
+            uploadDate: '2023-11-20',
+            isNew: true
+        },
+        { 
+            id: 71, 
+            category: 'reels', 
+            title: 'Amazing Dance Reel', 
+            thumbnail: 'https://i.imgur.com/k6pTzmy.jpeg', 
+            description: 'Incredible dance moves in a short, energetic reel that will leave you amazed.', 
+            watchLink: 'https://www.youtube.com/embed/C2iI29a9gT4', 
+            downloadLink: '#', 
+            ratio: '9-16',
+            uploadDate: '2023-11-20',
+            isNew: true
+        },
+        { 
+            id: 72, 
+            category: 'reels', 
+            title: 'Amazing Dance Reel', 
+            thumbnail: 'https://i.imgur.com/k6pTzmy.jpeg', 
+            description: 'Incredible dance moves in a short, energetic reel that will leave you amazed.', 
+            watchLink: 'https://www.youtube.com/embed/C2iI29a9gT4', 
+            downloadLink: '#', 
+            ratio: '9-16',
+            uploadDate: '2023-11-20',
+            isNew: true
+        },
+        { 
+            id: 73, 
+            category: 'reels', 
+            title: 'Amazing Dance Reel', 
+            thumbnail: 'https://i.imgur.com/k6pTzmy.jpeg', 
+            description: 'Incredible dance moves in a short, energetic reel that will leave you amazed.', 
+            watchLink: 'https://www.youtube.com/embed/C2iI29a9gT4', 
+            downloadLink: '#', 
+            ratio: '9-16',
+            uploadDate: '2023-11-20',
+            isNew: true
+        },
+        { 
+            id: 74, 
+            category: 'reels', 
+            title: 'Amazing Dance Reel', 
+            thumbnail: 'https://i.imgur.com/k6pTzmy.jpeg', 
+            description: 'Incredible dance moves in a short, energetic reel that will leave you amazed.', 
+            watchLink: 'https://www.youtube.com/embed/C2iI29a9gT4', 
+            downloadLink: '#', 
+            ratio: '9-16',
+            uploadDate: '2023-11-20',
+            isNew: true
+        },
+        { 
+            id: 75, 
+            category: 'reels', 
+            title: 'Amazing Dance Reel', 
+            thumbnail: 'https://i.imgur.com/k6pTzmy.jpeg', 
+            description: 'Incredible dance moves in a short, energetic reel that will leave you amazed.', 
+            watchLink: 'https://www.youtube.com/embed/C2iI29a9gT4', 
+            downloadLink: '#', 
+            ratio: '9-16',
+            uploadDate: '2023-11-20',
+            isNew: true
+        },
+        { 
+            id: 76, 
+            category: 'reels', 
+            title: 'Amazing Dance Reel', 
+            thumbnail: 'https://i.imgur.com/k6pTzmy.jpeg', 
+            description: 'Incredible dance moves in a short, energetic reel that will leave you amazed.', 
+            watchLink: 'https://www.youtube.com/embed/C2iI29a9gT4', 
+            downloadLink: '#', 
+            ratio: '9-16',
+            uploadDate: '2023-11-20',
+            isNew: true
+        },
+        { 
+            id: 77, 
+            category: 'reels', 
+            title: 'Amazing Dance Reel', 
+            thumbnail: 'https://i.imgur.com/k6pTzmy.jpeg', 
+            description: 'Incredible dance moves in a short, energetic reel that will leave you amazed.', 
+            watchLink: 'https://www.youtube.com/embed/C2iI29a9gT4', 
+            downloadLink: '#', 
+            ratio: '9-16',
+            uploadDate: '2023-11-20',
+            isNew: true
+        },
+        { 
+            id: 78, 
+            category: 'reels', 
+            title: 'Amazing Dance Reel', 
+            thumbnail: 'https://i.imgur.com/k6pTzmy.jpeg', 
+            description: 'Incredible dance moves in a short, energetic reel that will leave you amazed.', 
+            watchLink: 'https://www.youtube.com/embed/C2iI29a9gT4', 
+            downloadLink: '#', 
+            ratio: '9-16',
+            uploadDate: '2023-11-20',
+            isNew: true
+        },
+        { 
+            id: 79, 
+            category: 'reels', 
+            title: 'Amazing Dance Reel', 
+            thumbnail: 'https://i.imgur.com/k6pTzmy.jpeg', 
+            description: 'Incredible dance moves in a short, energetic reel that will leave you amazed.', 
+            watchLink: 'https://www.youtube.com/embed/C2iI29a9gT4', 
+            downloadLink: '#', 
+            ratio: '9-16',
+            uploadDate: '2023-11-20',
+            isNew: true
+        },
+        { 
+            id: 80, 
+            category: 'reels', 
+            title: 'Amazing Dance Reel', 
+            thumbnail: 'https://i.imgur.com/k6pTzmy.jpeg', 
+            description: 'Incredible dance moves in a short, energetic reel that will leave you amazed.', 
+            watchLink: 'https://www.youtube.com/embed/C2iI29a9gT4', 
+            downloadLink: '#', 
+            ratio: '9-16',
+            uploadDate: '2023-11-20',
+            isNew: true
+        },
+        { 
+            id: 81, 
+            category: 'reels', 
+            title: 'Amazing Dance Reel', 
+            thumbnail: 'https://i.imgur.com/k6pTzmy.jpeg', 
+            description: 'Incredible dance moves in a short, energetic reel that will leave you amazed.', 
+            watchLink: 'https://www.youtube.com/embed/C2iI29a9gT4', 
+            downloadLink: '#', 
+            ratio: '9-16',
+            uploadDate: '2023-11-20',
+            isNew: true
+        },
+        { 
+            id: 82, 
+            category: 'reels', 
+            title: 'Amazing Dance Reel', 
+            thumbnail: 'https://i.imgur.com/k6pTzmy.jpeg', 
+            description: 'Incredible dance moves in a short, energetic reel that will leave you amazed.', 
+            watchLink: 'https://www.youtube.com/embed/C2iI29a9gT4', 
+            downloadLink: '#', 
+            ratio: '9-16',
+            uploadDate: '2023-11-20',
+            isNew: true
+        },
+        { 
+            id: 83, 
+            category: 'reels', 
+            title: 'Amazing Dance Reel', 
+            thumbnail: 'https://i.imgur.com/k6pTzmy.jpeg', 
+            description: 'Incredible dance moves in a short, energetic reel that will leave you amazed.', 
+            watchLink: 'https://www.youtube.com/embed/C2iI29a9gT4', 
+            downloadLink: '#', 
+            ratio: '9-16',
+            uploadDate: '2023-11-20',
+            isNew: true
+        },
+        { 
+            id: 84, 
+            category: 'reels', 
+            title: 'Amazing Dance Reel', 
+            thumbnail: 'https://i.imgur.com/k6pTzmy.jpeg', 
+            description: 'Incredible dance moves in a short, energetic reel that will leave you amazed.', 
+            watchLink: 'https://www.youtube.com/embed/C2iI29a9gT4', 
+            downloadLink: '#', 
+            ratio: '9-16',
+            uploadDate: '2023-11-20',
+            isNew: true
+        },
+        { 
+            id: 85, 
+            category: 'reels', 
+            title: 'Amazing Dance Reel', 
+            thumbnail: 'https://i.imgur.com/k6pTzmy.jpeg', 
+            description: 'Incredible dance moves in a short, energetic reel that will leave you amazed.', 
+            watchLink: 'https://www.youtube.com/embed/C2iI29a9gT4', 
+            downloadLink: '#', 
+            ratio: '9-16',
+            uploadDate: '2023-11-20',
+            isNew: true
+        },
+        { 
+            id: 86, 
+            category: 'reels', 
+            title: 'Amazing Dance Reel', 
+            thumbnail: 'https://i.imgur.com/k6pTzmy.jpeg', 
+            description: 'Incredible dance moves in a short, energetic reel that will leave you amazed.', 
+            watchLink: 'https://www.youtube.com/embed/C2iI29a9gT4', 
+            downloadLink: '#', 
+            ratio: '9-16',
+            uploadDate: '2023-11-20',
+            isNew: true
+        },
+        { 
+            id: 87, 
+            category: 'reels', 
+            title: 'Amazing Dance Reel', 
+            thumbnail: 'https://i.imgur.com/k6pTzmy.jpeg', 
+            description: 'Incredible dance moves in a short, energetic reel that will leave you amazed.', 
+            watchLink: 'https://www.youtube.com/embed/C2iI29a9gT4', 
+            downloadLink: '#', 
+            ratio: '9-16',
+            uploadDate: '2023-11-20',
+            isNew: true
+        },
+        { 
+            id: 88, 
+            category: 'reels', 
+            title: 'Amazing Dance Reel', 
+            thumbnail: 'https://i.imgur.com/k6pTzmy.jpeg', 
+            description: 'Incredible dance moves in a short, energetic reel that will leave you amazed.', 
+            watchLink: 'https://www.youtube.com/embed/C2iI29a9gT4', 
+            downloadLink: '#', 
+            ratio: '9-16',
+            uploadDate: '2023-11-20',
+            isNew: true
+        
+        },
+        { 
+            id: 89, 
+            category: 'reels', 
+            title: 'Amazing Dance Reel', 
+            thumbnail: 'https://i.imgur.com/k6pTzmy.jpeg', 
+            description: 'Incredible dance moves in a short, energetic reel that will leave you amazed.', 
+            watchLink: 'https://www.youtube.com/embed/C2iI29a9gT4', 
+            downloadLink: '#', 
+            ratio: '9-16',
+            uploadDate: '2023-11-20',
+            isNew: true
+        },
+        { 
+            id: 90, 
+            category: 'reels', 
+            title: 'Amazing Dance Reel', 
+            thumbnail: 'https://i.imgur.com/k6pTzmy.jpeg', 
+            description: 'Incredible dance moves in a short, energetic reel that will leave you amazed.', 
+            watchLink: 'https://www.youtube.com/embed/C2iI29a9gT4', 
+            downloadLink: '#', 
+            ratio: '9-16',
+            uploadDate: '2023-11-20',
+            isNew: true
+        },
+        { 
+            id: 91, 
+            category: 'reels', 
+            title: 'Amazing Dance Reel', 
+            thumbnail: 'https://i.imgur.com/k6pTzmy.jpeg', 
+            description: 'Incredible dance moves in a short, energetic reel that will leave you amazed.', 
+            watchLink: 'https://www.youtube.com/embed/C2iI29a9gT4', 
+            downloadLink: '#', 
+            ratio: '9-16',
+            uploadDate: '2023-11-20',
+            isNew: true
+        },
+        { 
+            id: 92, 
+            category: 'reels', 
+            title: 'Amazing Dance Reel', 
+            thumbnail: 'https://i.imgur.com/k6pTzmy.jpeg', 
+            description: 'Incredible dance moves in a short, energetic reel that will leave you amazed.', 
+            watchLink: 'https://www.youtube.com/embed/C2iI29a9gT4', 
+            downloadLink: '#', 
+            ratio: '9-16',
+            uploadDate: '2023-11-20',
+            isNew: true
+        },
+        { 
+            id: 93, 
+            category: 'reels', 
+            title: 'Amazing Dance Reel', 
+            thumbnail: 'https://i.imgur.com/k6pTzmy.jpeg', 
+            description: 'Incredible dance moves in a short, energetic reel that will leave you amazed.', 
+            watchLink: 'https://www.youtube.com/embed/C2iI29a9gT4', 
+            downloadLink: '#', 
+            ratio: '9-16',
+            uploadDate: '2023-11-20',
+            isNew: true
+        },
+        { 
+            id: 94, 
+            category: 'reels', 
+            title: 'Amazing Dance Reel', 
+            thumbnail: 'https://i.imgur.com/k6pTzmy.jpeg', 
+            description: 'Incredible dance moves in a short, energetic reel that will leave you amazed.', 
+            watchLink: 'https://www.youtube.com/embed/C2iI29a9gT4', 
+            downloadLink: '#', 
+            ratio: '9-16',
+            uploadDate: '2023-11-20',
+            isNew: true
+        },
+        { 
+            id: 95, 
+            category: 'reels', 
+            title: 'Amazing Dance Reel', 
+            thumbnail: 'https://i.imgur.com/k6pTzmy.jpeg', 
+            description: 'Incredible dance moves in a short, energetic reel that will leave you amazed.', 
+            watchLink: 'https://www.youtube.com/embed/C2iI29a9gT4', 
+            downloadLink: '#', 
+            ratio: '9-16',
+            uploadDate: '2023-11-20',
+            isNew: true
+        },
+        { 
+            id: 96, 
+            category: 'reels', 
+            title: 'Amazing Dance Reel', 
+            thumbnail: 'https://i.imgur.com/k6pTzmy.jpeg', 
+            description: 'Incredible dance moves in a short, energetic reel that will leave you amazed.', 
+            watchLink: 'https://www.youtube.com/embed/C2iI29a9gT4', 
+            downloadLink: '#', 
+            ratio: '9-16',
+            uploadDate: '2023-11-20',
+            isNew: true
+        },
+        { 
+            id: 97, 
+            category: 'reels', 
+            title: 'Amazing Dance Reel', 
+            thumbnail: 'https://i.imgur.com/k6pTzmy.jpeg', 
+            description: 'Incredible dance moves in a short, energetic reel that will leave you amazed.', 
+            watchLink: 'https://www.youtube.com/embed/C2iI29a9gT4', 
+            downloadLink: '#', 
+            ratio: '9-16',
+            uploadDate: '2023-11-20',
+            isNew: true
+        },
+        { 
+            id: 98, 
+            category: 'reels', 
+            title: 'Amazing Dance Reel', 
+            thumbnail: 'https://i.imgur.com/k6pTzmy.jpeg', 
+            description: 'Incredible dance moves in a short, energetic reel that will leave you amazed.', 
+            watchLink: 'https://www.youtube.com/embed/C2iI29a9gT4', 
+            downloadLink: '#', 
+            ratio: '9-16',
+            uploadDate: '2023-11-20',
+            isNew: true
+        },
+        { 
+            id: 99, 
+            category: 'reels', 
+            title: 'Amazing Dance Reel', 
+            thumbnail: 'https://i.imgur.com/k6pTzmy.jpeg', 
+            description: 'Incredible dance moves in a short, energetic reel that will leave you amazed.', 
+            watchLink: 'https://www.youtube.com/embed/C2iI29a9gT4', 
+            downloadLink: '#', 
+            ratio: '9-16',
+            uploadDate: '2023-11-20',
+            isNew: true
+        },
+        { 
+            id: 100, 
+            category: 'reels', 
+            title: 'Amazing Dance Reel', 
+            thumbnail: 'https://i.imgur.com/k6pTzmy.jpeg', 
+            description: 'Incredible dance moves in a short, energetic reel that will leave you amazed.', 
+            watchLink: 'https://www.youtube.com/embed/C2iI29a9gT4', 
+            downloadLink: '#', 
+            ratio: '9-16',
+            uploadDate: '2023-11-20',
+            isNew: true
+        },
+        { 
+            id: 101, 
+            category: 'reels', 
+            title: 'Amazing Dance Reel', 
+            thumbnail: 'https://i.imgur.com/k6pTzmy.jpeg', 
+            description: 'Incredible dance moves in a short, energetic reel that will leave you amazed.', 
+            watchLink: 'https://www.youtube.com/embed/C2iI29a9gT4', 
+            downloadLink: '#', 
+            ratio: '9-16',
+            uploadDate: '2023-11-20',
+            isNew: true
+        },
+        { 
+            id: 102, 
+            category: 'reels', 
+            title: 'Amazing Dance Reel', 
+            thumbnail: 'https://i.imgur.com/k6pTzmy.jpeg', 
+            description: 'Incredible dance moves in a short, energetic reel that will leave you amazed.', 
+            watchLink: 'https://www.youtube.com/embed/C2iI29a9gT4', 
+            downloadLink: '#', 
+            ratio: '9-16',
+            uploadDate: '2023-11-20',
+            isNew: true
+        },
+        { 
+            id: 103, 
+            category: 'reels', 
+            title: 'Amazing Dance Reel', 
+            thumbnail: 'https://i.imgur.com/k6pTzmy.jpeg', 
+            description: 'Incredible dance moves in a short, energetic reel that will leave you amazed.', 
+            watchLink: 'https://www.youtube.com/embed/C2iI29a9gT4', 
+            downloadLink: '#', 
+            ratio: '9-16',
+            uploadDate: '2023-11-20',
+            isNew: true
+        },
+        { 
+            id: 104, 
+            category: 'reels', 
+            title: 'Amazing Dance Reel', 
+            thumbnail: 'https://i.imgur.com/k6pTzmy.jpeg', 
+            description: 'Incredible dance moves in a short, energetic reel that will leave you amazed.', 
+            watchLink: 'https://www.youtube.com/embed/C2iI29a9gT4', 
+            downloadLink: '#', 
+            ratio: '9-16',
+            uploadDate: '2023-11-20',
+            isNew: true
+        },
+        { 
+            id: 105, 
+            category: 'reels', 
+            title: 'Amazing Dance Reel', 
+            thumbnail: 'https://i.imgur.com/k6pTzmy.jpeg', 
+            description: 'Incredible dance moves in a short, energetic reel that will leave you amazed.', 
+            watchLink: 'https://www.youtube.com/embed/C2iI29a9gT4', 
+            downloadLink: '#', 
+            ratio: '9-16',
+            uploadDate: '2023-11-20',
+            isNew: true
+        },
+        { 
+            id: 106, 
+            category: 'reels', 
+            title: 'Amazing Dance Reel', 
+            thumbnail: 'https://i.imgur.com/k6pTzmy.jpeg', 
+            description: 'Incredible dance moves in a short, energetic reel that will leave you amazed.', 
+            watchLink: 'https://www.youtube.com/embed/C2iI29a9gT4', 
+            downloadLink: '#', 
+            ratio: '9-16',
+            uploadDate: '2023-11-20',
+            isNew: true
+        },
+        { 
+            id: 107, 
+            category: 'reels', 
+            title: 'Amazing Dance Reel', 
+            thumbnail: 'https://i.imgur.com/k6pTzmy.jpeg', 
+            description: 'Incredible dance moves in a short, energetic reel that will leave you amazed.', 
+            watchLink: 'https://www.youtube.com/embed/C2iI29a9gT4', 
+            downloadLink: '#', 
+            ratio: '9-16',
+            uploadDate: '2023-11-20',
+            isNew: true
+        },
+        { 
+            id: 108, 
+            category: 'reels', 
+            title: 'Amazing Dance Reel', 
+            thumbnail: 'https://i.imgur.com/k6pTzmy.jpeg', 
+            description: 'Incredible dance moves in a short, energetic reel that will leave you amazed.', 
+            watchLink: 'https://www.youtube.com/embed/C2iI29a9gT4', 
+            downloadLink: '#', 
+            ratio: '9-16',
+            uploadDate: '2023-11-20',
+            isNew: true
+        },
+        { 
+            id: 109, 
+            category: 'reels', 
+            title: 'Amazing Dance Reel', 
+            thumbnail: 'https://i.imgur.com/k6pTzmy.jpeg', 
+            description: 'Incredible dance moves in a short, energetic reel that will leave you amazed.', 
+            watchLink: 'https://www.youtube.com/embed/C2iI29a9gT4', 
+            downloadLink: '#', 
+            ratio: '9-16',
+            uploadDate: '2023-11-20',
+            isNew: true
+        },
+        { 
+            id: 110, 
+            category: 'reels', 
+            title: 'Amazing Dance Reel', 
+            thumbnail: 'https://i.imgur.com/k6pTzmy.jpeg', 
+            description: 'Incredible dance moves in a short, energetic reel that will leave you amazed.', 
+            watchLink: 'https://www.youtube.com/embed/C2iI29a9gT4', 
+            downloadLink: '#', 
+            ratio: '9-16',
+            uploadDate: '2023-11-20',
+            isNew: true
+        },
+        { 
+            id: 111, 
+            category: 'reels', 
+            title: 'Amazing Dance Reel', 
+            thumbnail: 'https://i.imgur.com/k6pTzmy.jpeg', 
+            description: 'Incredible dance moves in a short, energetic reel that will leave you amazed.', 
+            watchLink: 'https://www.youtube.com/embed/C2iI29a9gT4', 
+            downloadLink: '#', 
+            ratio: '9-16',
+            uploadDate: '2023-11-20',
+            isNew: true
+        },
+        { 
+            id: 112, 
+            category: 'reels', 
+            title: 'Amazing Dance Reel', 
+            thumbnail: 'https://i.imgur.com/k6pTzmy.jpeg', 
+            description: 'Incredible dance moves in a short, energetic reel that will leave you amazed.', 
+            watchLink: 'https://www.youtube.com/embed/C2iI29a9gT4', 
+            downloadLink: '#', 
+            ratio: '9-16',
+            uploadDate: '2023-11-20',
+            isNew: true
+        },
+        { 
+            id: 113, 
+            category: 'reels', 
+            title: 'Amazing Dance Reel', 
+            thumbnail: 'https://i.imgur.com/k6pTzmy.jpeg', 
+            description: 'Incredible dance moves in a short, energetic reel that will leave you amazed.', 
+            watchLink: 'https://www.youtube.com/embed/C2iI29a9gT4', 
+            downloadLink: '#', 
+            ratio: '9-16',
+            uploadDate: '2023-11-20',
+            isNew: true
+        },
+        { 
+            id: 114, 
+            category: 'reels', 
+            title: 'Amazing Dance Reel', 
+            thumbnail: 'https://i.imgur.com/k6pTzmy.jpeg', 
+            description: 'Incredible dance moves in a short, energetic reel that will leave you amazed.', 
+            watchLink: 'https://www.youtube.com/embed/C2iI29a9gT4', 
+            downloadLink: '#', 
+            ratio: '9-16',
+            uploadDate: '2023-11-20',
+            isNew: true
+        },
+        { 
+            id: 115, 
+            category: 'reels', 
+            title: 'Amazing Dance Reel', 
+            thumbnail: 'https://i.imgur.com/k6pTzmy.jpeg', 
+            description: 'Incredible dance moves in a short, energetic reel that will leave you amazed.', 
+            watchLink: 'https://www.youtube.com/embed/C2iI29a9gT4', 
+            downloadLink: '#', 
+            ratio: '9-16',
+            uploadDate: '2023-11-20',
+            isNew: true
+        },
+        { 
+            id: 116, 
+            category: 'reels', 
+            title: 'Amazing Dance Reel', 
+            thumbnail: 'https://i.imgur.com/k6pTzmy.jpeg', 
+            description: 'Incredible dance moves in a short, energetic reel that will leave you amazed.', 
+            watchLink: 'https://www.youtube.com/embed/C2iI29a9gT4', 
+            downloadLink: '#', 
+            ratio: '9-16',
+            uploadDate: '2023-11-20',
+            isNew: true
+        },
+        { 
+            id: 117, 
+            category: 'reels', 
+            title: 'Amazing Dance Reel', 
+            thumbnail: 'https://i.imgur.com/k6pTzmy.jpeg', 
+            description: 'Incredible dance moves in a short, energetic reel that will leave you amazed.', 
+            watchLink: 'https://www.youtube.com/embed/C2iI29a9gT4', 
+            downloadLink: '#', 
+            ratio: '9-16',
+            uploadDate: '2023-11-20',
+            isNew: true
+        },
+        { 
+            id: 118, 
+            category: 'reels', 
+            title: 'Amazing Dance Reel', 
+            thumbnail: 'https://i.imgur.com/k6pTzmy.jpeg', 
+            description: 'Incredible dance moves in a short, energetic reel that will leave you amazed.', 
+            watchLink: 'https://www.youtube.com/embed/C2iI29a9gT4', 
+            downloadLink: '#', 
+            ratio: '9-16',
+            uploadDate: '2023-11-20',
+            isNew: true
+        },
+        { 
+            id: 119, 
+            category: 'reels', 
+            title: 'Amazing Dance Reel', 
+            thumbnail: 'https://i.imgur.com/k6pTzmy.jpeg', 
+            description: 'Incredible dance moves in a short, energetic reel that will leave you amazed.', 
+            watchLink: 'https://www.youtube.com/embed/C2iI29a9gT4', 
+            downloadLink: '#', 
+            ratio: '9-16',
+            uploadDate: '2023-11-20',
+            isNew: true
+        },
+        { 
+            id: 120, 
+            category: 'reels', 
+            title: 'Amazing Dance Reel', 
+            thumbnail: 'https://i.imgur.com/k6pTzmy.jpeg', 
+            description: 'Incredible dance moves in a short, energetic reel that will leave you amazed.', 
+            watchLink: 'https://www.youtube.com/embed/C2iI29a9gT4', 
+            downloadLink: '#', 
+            ratio: '9-16',
+            uploadDate: '2023-11-20',
+            isNew: true
+        },
+        { 
+            id: 121, 
+            category: 'reels', 
+            title: 'Amazing Dance Reel', 
+            thumbnail: 'https://i.imgur.com/k6pTzmy.jpeg', 
+            description: 'Incredible dance moves in a short, energetic reel that will leave you amazed.', 
+            watchLink: 'https://www.youtube.com/embed/C2iI29a9gT4', 
+            downloadLink: '#', 
+            ratio: '9-16',
+            uploadDate: '2023-11-20',
+            isNew: true
+        },
+        { 
+            id: 122, 
+            category: 'reels', 
+            title: 'Amazing Dance Reel', 
+            thumbnail: 'https://i.imgur.com/k6pTzmy.jpeg', 
+            description: 'Incredible dance moves in a short, energetic reel that will leave you amazed.', 
+            watchLink: 'https://www.youtube.com/embed/C2iI29a9gT4', 
+            downloadLink: '#', 
+            ratio: '9-16',
+            uploadDate: '2023-11-20',
+            isNew: true
+        },
+        { 
+            id: 123, 
+            category: 'reels', 
+            title: 'Amazing Dance Reel', 
+            thumbnail: 'https://i.imgur.com/k6pTzmy.jpeg', 
+            description: 'Incredible dance moves in a short, energetic reel that will leave you amazed.', 
+            watchLink: 'https://www.youtube.com/embed/C2iI29a9gT4', 
+            downloadLink: '#', 
+            ratio: '9-16',
+            uploadDate: '2023-11-20',
+            isNew: true
+        },
+        { 
+            id: 124, 
+            category: 'reels', 
+            title: 'Amazing Dance Reel', 
+            thumbnail: 'https://i.imgur.com/k6pTzmy.jpeg', 
+            description: 'Incredible dance moves in a short, energetic reel that will leave you amazed.', 
+            watchLink: 'https://www.youtube.com/embed/C2iI29a9gT4', 
+            downloadLink: '#', 
+            ratio: '9-16',
+            uploadDate: '2023-11-20',
+            isNew: true
+        },
+        { 
+            id: 125, 
+            category: 'reels', 
+            title: 'Amazing Dance Reel', 
+            thumbnail: 'https://i.imgur.com/k6pTzmy.jpeg', 
+            description: 'Incredible dance moves in a short, energetic reel that will leave you amazed.', 
+            watchLink: 'https://www.youtube.com/embed/C2iI29a9gT4', 
+            downloadLink: '#', 
+            ratio: '9-16',
+            uploadDate: '2023-11-20',
+            isNew: true
+        },
+        { 
+            id: 126, 
+            category: 'reels', 
+            title: 'Amazing Dance Reel', 
+            thumbnail: 'https://i.imgur.com/k6pTzmy.jpeg', 
+            description: 'Incredible dance moves in a short, energetic reel that will leave you amazed.', 
+            watchLink: 'https://www.youtube.com/embed/C2iI29a9gT4', 
+            downloadLink: '#', 
+            ratio: '9-16',
+            uploadDate: '2023-11-20',
+            isNew: true
+        },
+        { 
+            id: 127, 
+            category: 'reels', 
+            title: 'Amazing Dance Reel', 
+            thumbnail: 'https://i.imgur.com/k6pTzmy.jpeg', 
+            description: 'Incredible dance moves in a short, energetic reel that will leave you amazed.', 
+            watchLink: 'https://www.youtube.com/embed/C2iI29a9gT4', 
+            downloadLink: '#', 
+            ratio: '9-16',
+            uploadDate: '2023-11-20',
+            isNew: true
+        },
+        { 
+            id: 128, 
+            category: 'reels', 
+            title: 'Amazing Dance Reel', 
+            thumbnail: 'https://i.imgur.com/k6pTzmy.jpeg', 
+            description: 'Incredible dance moves in a short, energetic reel that will leave you amazed.', 
+            watchLink: 'https://www.youtube.com/embed/C2iI29a9gT4', 
+            downloadLink: '#', 
+            ratio: '9-16',
+            uploadDate: '2023-11-20',
+            isNew: true
+        },
+        { 
+            id: 129, 
+            category: 'reels', 
+            title: 'Amazing Dance Reel', 
+            thumbnail: 'https://i.imgur.com/k6pTzmy.jpeg', 
+            description: 'Incredible dance moves in a short, energetic reel that will leave you amazed.', 
+            watchLink: 'https://www.youtube.com/embed/C2iI29a9gT4', 
+            downloadLink: '#', 
+            ratio: '9-16',
+            uploadDate: '2023-11-20',
+            isNew: true
+        },
+        { 
+            id: 130, 
+            category: 'reels', 
+            title: 'Amazing Dance Reel', 
+            thumbnail: 'https://i.imgur.com/k6pTzmy.jpeg', 
+            description: 'Incredible dance moves in a short, energetic reel that will leave you amazed.', 
+            watchLink: 'https://www.youtube.com/embed/C2iI29a9gT4', 
+            downloadLink: '#', 
+            ratio: '9-16',
+            uploadDate: '2023-11-20',
+            isNew: true
+        },
+        { 
+            id: 131, 
+            category: 'reels', 
+            title: 'Amazing Dance Reel', 
+            thumbnail: 'https://i.imgur.com/k6pTzmy.jpeg', 
+            description: 'Incredible dance moves in a short, energetic reel that will leave you amazed.', 
+            watchLink: 'https://www.youtube.com/embed/C2iI29a9gT4', 
+            downloadLink: '#', 
+            ratio: '9-16',
+            uploadDate: '2023-11-20',
+            isNew: true
+        },
+        { 
+            id: 132, 
+            category: 'reels', 
+            title: 'Amazing Dance Reel', 
+            thumbnail: 'https://i.imgur.com/k6pTzmy.jpeg', 
+            description: 'Incredible dance moves in a short, energetic reel that will leave you amazed.', 
+            watchLink: 'https://www.youtube.com/embed/C2iI29a9gT4', 
+            downloadLink: '#', 
+            ratio: '9-16',
+            uploadDate: '2023-11-20',
+            isNew: true
+        },
+        { 
+            id: 133, 
+            category: 'reels', 
+            title: 'Amazing Dance Reel', 
+            thumbnail: 'https://i.imgur.com/k6pTzmy.jpeg', 
+            description: 'Incredible dance moves in a short, energetic reel that will leave you amazed.', 
+            watchLink: 'https://www.youtube.com/embed/C2iI29a9gT4', 
+            downloadLink: '#', 
+            ratio: '9-16',
+            uploadDate: '2023-11-20',
+            isNew: true
+        },
+        { 
+            id: 134, 
+            category: 'reels', 
+            title: 'Amazing Dance Reel', 
+            thumbnail: 'https://i.imgur.com/k6pTzmy.jpeg', 
+            description: 'Incredible dance moves in a short, energetic reel that will leave you amazed.', 
+            watchLink: 'https://www.youtube.com/embed/C2iI29a9gT4', 
+            downloadLink: '#', 
+            ratio: '9-16',
+            uploadDate: '2023-11-20',
+            isNew: true
+        },
+        { 
+            id: 135, 
+            category: 'reels', 
+            title: 'Amazing Dance Reel', 
+            thumbnail: 'https://i.imgur.com/k6pTzmy.jpeg', 
+            description: 'Incredible dance moves in a short, energetic reel that will leave you amazed.', 
+            watchLink: 'https://www.youtube.com/embed/C2iI29a9gT4', 
+            downloadLink: '#', 
+            ratio: '9-16',
+            uploadDate: '2023-11-20',
+            isNew: true
+        },
+        { 
+            id: 136, 
+            category: 'reels', 
+            title: 'Amazing Dance Reel', 
+            thumbnail: 'https://i.imgur.com/k6pTzmy.jpeg', 
+            description: 'Incredible dance moves in a short, energetic reel that will leave you amazed.', 
+            watchLink: 'https://www.youtube.com/embed/C2iI29a9gT4', 
+            downloadLink: '#', 
+            ratio: '9-16',
+            uploadDate: '2023-11-20',
+            isNew: true
+        },
+        { 
+            id: 137, 
+            category: 'reels', 
+            title: 'Amazing Dance Reel', 
+            thumbnail: 'https://i.imgur.com/k6pTzmy.jpeg', 
+            description: 'Incredible dance moves in a short, energetic reel that will leave you amazed.', 
+            watchLink: 'https://www.youtube.com/embed/C2iI29a9gT4', 
+            downloadLink: '#', 
+            ratio: '9-16',
+            uploadDate: '2023-11-20',
+            isNew: true
+        },
+        { 
+            id: 138, 
+            category: 'reels', 
+            title: 'Amazing Dance Reel', 
+            thumbnail: 'https://i.imgur.com/k6pTzmy.jpeg', 
+            description: 'Incredible dance moves in a short, energetic reel that will leave you amazed.', 
+            watchLink: 'https://www.youtube.com/embed/C2iI29a9gT4', 
+            downloadLink: '#', 
+            ratio: '9-16',
+            uploadDate: '2023-11-20',
+            isNew: true
+        },
+        { 
+            id: 139, 
+            category: 'reels', 
+            title: 'Amazing Dance Reel', 
+            thumbnail: 'https://i.imgur.com/k6pTzmy.jpeg', 
+            description: 'Incredible dance moves in a short, energetic reel that will leave you amazed.', 
+            watchLink: 'https://www.youtube.com/embed/C2iI29a9gT4', 
+            downloadLink: '#', 
+            ratio: '9-16',
+            uploadDate: '2023-11-20',
+            isNew: true
+        },
+        { 
+            id: 140, 
+            category: 'reels', 
+            title: 'Amazing Dance Reel', 
+            thumbnail: 'https://i.imgur.com/k6pTzmy.jpeg', 
+            description: 'Incredible dance moves in a short, energetic reel that will leave you amazed.', 
+            watchLink: 'https://www.youtube.com/embed/C2iI29a9gT4', 
+            downloadLink: '#', 
+            ratio: '9-16',
+            uploadDate: '2023-11-20',
+            isNew: true
+        },
+        { 
+            id: 141, 
+            category: 'reels', 
+            title: 'Amazing Dance Reel', 
+            thumbnail: 'https://i.imgur.com/k6pTzmy.jpeg', 
+            description: 'Incredible dance moves in a short, energetic reel that will leave you amazed.', 
+            watchLink: 'https://www.youtube.com/embed/C2iI29a9gT4', 
+            downloadLink: '#', 
+            ratio: '9-16',
+            uploadDate: '2023-11-20',
+            isNew: true
+        },
+        { 
+            id: 142, 
+            category: 'reels', 
+            title: 'Amazing Dance Reel', 
+            thumbnail: 'https://i.imgur.com/k6pTzmy.jpeg', 
+            description: 'Incredible dance moves in a short, energetic reel that will leave you amazed.', 
+            watchLink: 'https://www.youtube.com/embed/C2iI29a9gT4', 
+            downloadLink: '#', 
+            ratio: '9-16',
+            uploadDate: '2023-11-20',
+            isNew: true
+        },
+        { 
+            id: 143, 
+            category: 'reels', 
+            title: 'Amazing Dance Reel', 
+            thumbnail: 'https://i.imgur.com/k6pTzmy.jpeg', 
+            description: 'Incredible dance moves in a short, energetic reel that will leave you amazed.', 
+            watchLink: 'https://www.youtube.com/embed/C2iI29a9gT4', 
+            downloadLink: '#', 
+            ratio: '9-16',
+            uploadDate: '2023-11-20',
+            isNew: true
+        },
+        { 
+            id: 144, 
+            category: 'reels', 
+            title: 'Amazing Dance Reel', 
+            thumbnail: 'https://i.imgur.com/k6pTzmy.jpeg', 
+            description: 'Incredible dance moves in a short, energetic reel that will leave you amazed.', 
+            watchLink: 'https://www.youtube.com/embed/C2iI29a9gT4', 
+            downloadLink: '#', 
+            ratio: '9-16',
+            uploadDate: '2023-11-20',
+            isNew: true
+        },
+        { 
+            id: 145, 
+            category: 'reels', 
+            title: 'Amazing Dance Reel', 
+            thumbnail: 'https://i.imgur.com/k6pTzmy.jpeg', 
+            description: 'Incredible dance moves in a short, energetic reel that will leave you amazed.', 
+            watchLink: 'https://www.youtube.com/embed/C2iI29a9gT4', 
+            downloadLink: '#', 
+            ratio: '9-16',
+            uploadDate: '2023-11-20',
+            isNew: true
+        },
+        { 
+            id: 146, 
+            category: 'reels', 
+            title: 'Amazing Dance Reel', 
+            thumbnail: 'https://i.imgur.com/k6pTzmy.jpeg', 
+            description: 'Incredible dance moves in a short, energetic reel that will leave you amazed.', 
+            watchLink: 'https://www.youtube.com/embed/C2iI29a9gT4', 
+            downloadLink: '#', 
+            ratio: '9-16',
+            uploadDate: '2023-11-20',
+            isNew: true
+        },
+        { 
+            id: 147, 
+            category: 'reels', 
+            title: 'Amazing Dance Reel', 
+            thumbnail: 'https://i.imgur.com/k6pTzmy.jpeg', 
+            description: 'Incredible dance moves in a short, energetic reel that will leave you amazed.', 
+            watchLink: 'https://www.youtube.com/embed/C2iI29a9gT4', 
+            downloadLink: '#', 
+            ratio: '9-16',
+            uploadDate: '2023-11-20',
+            isNew: true
+        },
+        { 
+            id: 148, 
+            category: 'reels', 
+            title: 'Amazing Dance Reel', 
+            thumbnail: 'https://i.imgur.com/k6pTzmy.jpeg', 
+            description: 'Incredible dance moves in a short, energetic reel that will leave you amazed.', 
+            watchLink: 'https://www.youtube.com/embed/C2iI29a9gT4', 
+            downloadLink: '#', 
+            ratio: '9-16',
+            uploadDate: '2023-11-20',
+            isNew: true
+        },
+        { 
+            id: 149, 
+            category: 'reels', 
+            title: 'Amazing Dance Reel', 
+            thumbnail: 'https://i.imgur.com/k6pTzmy.jpeg', 
+            description: 'Incredible dance moves in a short, energetic reel that will leave you amazed.', 
+            watchLink: 'https://www.youtube.com/embed/C2iI29a9gT4', 
+            downloadLink: '#', 
+            ratio: '9-16',
+            uploadDate: '2023-11-20',
+            isNew: true
+        },
+        { 
+            id: 150, 
+            category: 'reels', 
+            title: 'Amazing Dance Reel', 
+            thumbnail: 'https://i.imgur.com/k6pTzmy.jpeg', 
+            description: 'Incredible dance moves in a short, energetic reel that will leave you amazed.', 
+            watchLink: 'https://www.youtube.com/embed/C2iI29a9gT4', 
+            downloadLink: '#', 
+            ratio: '9-16',
+            uploadDate: '2023-11-20',
+            isNew: true
+        },
+        { 
+            id: 151, 
+            category: 'reels', 
+            title: 'Amazing Dance Reel', 
+            thumbnail: 'https://i.imgur.com/k6pTzmy.jpeg', 
+            description: 'Incredible dance moves in a short, energetic reel that will leave you amazed.', 
+            watchLink: 'https://www.youtube.com/embed/C2iI29a9gT4', 
+            downloadLink: '#', 
+            ratio: '9-16',
+            uploadDate: '2023-11-20',
+            isNew: true
+        },
+        {
+            id: 3, 
+            category: 'music', 
+            title: 'Live Concert Performance', 
+            thumbnail: 'https://i.imgur.com/gK2vYso.jpeg', 
+            description: 'Experience the magic of a live performance with stunning audio quality and crowd energy.', 
+            watchLink: 'https://www.youtube.com/embed/example_music', 
+            downloadLink: '#', 
+            ratio: '16-9',
+            uploadDate: '2023-09-05'
+        },
+        {
+            id: 4, 
+            category: 'funny', 
+            title: 'Hilarious Cat Moments', 
+            thumbnail: 'https://i.imgur.com/JzcJpW5.jpeg', 
+            description: 'You will not stop laughing after watching these funny cat clips compilation.', 
+            watchLink: 'https://www.youtube.com/embed/catvideo', 
+            downloadLink: '#', 
+            ratio: '16-9',
+            uploadDate: '2023-08-12'
+        },
+        {
+            id: 5, 
+            category: 'gaming', 
+            title: 'Pro Gaming Highlights', 
+            thumbnail: 'https://i.imgur.com/R0gUaXQ.jpeg', 
+            description: 'Epic wins and intense moments from competitive gaming tournaments worldwide.', 
+            watchLink: 'https://www.youtube.com/embed/gamingvideo', 
+            downloadLink: '#', 
+            ratio: '16-9',
+            uploadDate: '2023-10-28'
+        },
+        {
+            id: 6, 
+            category: 'tech', 
+            title: 'The Future of AI is Here', 
+            thumbnail: 'https://i.postimg.cc/g2jqvGYk/IMG-20251023-214303-243.jpg', 
+            description: 'Exploring the next wave of artificial intelligence and its impact on our daily lives.', 
+            watchLink: 'https://www.youtube.com/embed/newtech', 
+            downloadLink: '#', 
+            ratio: '16-9',
+            uploadDate: '2023-11-15',
+            isNew: true
+        },
+        {
+            id: 7, 
+            category: 'tech', 
+            title: 'Action Movie Teaser', 
+            thumbnail: 'https://i.postimg.cc/D0cdcZJ7/IMG-20251023-214256-368.jpg', 
+            description: 'Get ready for some high-octane action with stunning stunts and visual effects.', 
+            watchLink: 'https://www.youtube.com/embed/example_action', 
+            downloadLink: '#', 
+            ratio: '16-9',
+            uploadDate: '2023-11-10'
+          },
+          {
+               id: 8, 
+            category: 'movies', 
+            title: 'Action Movie Teaser', 
+            thumbnail: 'https://i.imgur.com/fL6n1tE.jpeg', 
+            description: 'Get ready for some high-octane action with stunning stunts and visual effects.', 
+            watchLink: 'https://www.youtube.com/embed/example_action', 
+            downloadLink: '#', 
+            ratio: '16-9',
+            uploadDate: '2023-11-10'
+        },
+        {
+            id: 9, 
+            category: 'reels', 
+            title: 'Creative Art Reel', 
+            thumbnail: 'https://i.imgur.com/nJmGTaU.jpeg', 
+            description: 'Watch this satisfying art creation process from start to finish.', 
+            watchLink: 'https://www.youtube.com/embed/example_art', 
+            downloadLink: '#', 
+            ratio: '9-16',
+            uploadDate: '2023-11-18',
+            isNew: true
+        },
+        {
+            id: 10, 
+            category: 'music', 
+            title: 'Acoustic Cover Song', 
+            thumbnail: 'https://i.imgur.com/cDc2YxT.jpeg', 
+            description: 'A beautiful acoustic version of a popular song with raw emotion and talent.', 
+            watchLink: 'https://www.youtube.com/embed/example_acoustic', 
+            downloadLink: '#', 
+            ratio: '16-9',
+            uploadDate: '2023-10-22'
+        },
+        // New videos for the added categories
+        {
+            id: 49, 
+            category: 'education', 
+            title: 'Learn Python in 30 Days', 
+            thumbnail: 'https://i.imgur.com/example_education.jpg', 
+            description: 'A comprehensive Python programming course for beginners to advanced learners.', 
+            watchLink: 'https://www.youtube.com/embed/example_python', 
+            downloadLink: '#', 
+            ratio: '16-9',
+            uploadDate: '2023-11-25',
+            isNew: true
+        },
+        {
+            id: 50, 
+            category: 'course', 
+            title: 'Digital Marketing Masterclass', 
+            thumbnail: 'https://i.imgur.com/example_course.jpg', 
+            description: 'Complete guide to digital marketing strategies for business growth.', 
+            watchLink: 'https://www.youtube.com/embed/example_marketing', 
+            downloadLink: '#', 
+            ratio: '16-9',
+            uploadDate: '2023-11-24'
+        },
+        {
+            id: 51, 
+            category: 'trending', 
+            title: 'Viral Challenge of the Week', 
+            thumbnail: 'https://i.imgur.com/example_trending.jpg', 
+            description: 'Check out the most viral challenge that everyone is talking about this week!', 
+            watchLink: 'https://www.youtube.com/embed/example_viral', 
+            downloadLink: '#', 
+            ratio: '9-16',
+            uploadDate: '2023-11-26',
+            isNew: true
+        },
+        {
+            id: 52, 
+            category: 'roast', 
+            title: 'Celebrity Roast Session', 
+            thumbnail: 'https://i.imgur.com/example_roast.jpg', 
+            description: 'Hilarious roast of popular celebrities with sharp comedy and wit.', 
+            watchLink: 'https://www.youtube.com/embed/example_roast', 
+            downloadLink: '#', 
+            ratio: '16-9',
+            uploadDate: '2023-11-23'
+        },
+        {
+            id: 53, 
+            category: 'cricket', 
+            title: 'World Cup Highlights 2023', 
+            thumbnail: 'https://i.imgur.com/example_cricket.jpg', 
+            description: 'Relive the most exciting moments from the Cricket World Cup 2023.', 
+            watchLink: 'https://www.youtube.com/embed/example_cricket', 
+            downloadLink: '#', 
+            ratio: '16-9',
+            uploadDate: '2023-11-22',
+            isNew: true
+        }
+    ];
+
+    // Initialize the app
+    document.addEventListener('DOMContentLoaded', () => {
+        const videoGrid = document.getElementById('videoGrid');
+        const navLinks = document.querySelectorAll('.nav-link');
+        const categoryCards = document.querySelectorAll('.category-card');
+        const searchBar = document.getElementById('searchBar');
+        const loadMoreBtn = document.getElementById('loadMoreBtn');
+        const openNavBtn = document.getElementById('openNavBtn');
+        const closeNavBtn = document.getElementById('closeNavBtn');
+        const sidenav = document.getElementById('mySidenav');
+        const notificationBell = document.getElementById('notificationBell');
+        const notificationPanel = document.getElementById('notificationPanel');
+        const notificationCount = document.getElementById('notificationCount');
+        const faqItems = document.querySelectorAll('.faq-item');
+        const toast = document.getElementById('toast');
+        const toastIcon = document.getElementById('toastIcon');
+        const toastMessage = document.getElementById('toastMessage');
+        const homeBtn = document.getElementById('homeBtn');
+        const recentlyWatchedBtn = document.getElementById('recentlyWatchedBtn');
+        const watchLaterBtn = document.getElementById('watchLaterBtn');
+        const favoritesBtn = document.getElementById('favoritesBtn');
+        const footerLinks = document.querySelectorAll('.footer-link');
+        
+        const categoryEmojis = { 
+            movies: '🎬', 
+            reels: '📸', 
+            music: '🎵', 
+            funny: '😂', 
+            gaming: '🎮', 
+            tech: '💻',
+            // New category emojis
+            education: '📚',
+            course: '🎓',
+            trending: '🔥',
+            roast: '🍗',
+            cricket: '🏏'
+        };
+        
+        let currentFilter = 'all';
+        let currentSearchQuery = '';
+        let itemsPerPage = 6;
+        let currentPage = 1;
+        
+        // User data storage
+        let userData = {
+            favorites: JSON.parse(localStorage.getItem('vidDrillFavorites')) || [],
+            watchLater: JSON.parse(localStorage.getItem('vidDrillWatchLater')) || [],
+            recentlyWatched: JSON.parse(localStorage.getItem('vidDrillRecentlyWatched')) || []
+        };
+        
+        // Save user data to localStorage
+        const saveUserData = () => {
+            localStorage.setItem('vidDrillFavorites', JSON.stringify(userData.favorites));
+            localStorage.setItem('vidDrillWatchLater', JSON.stringify(userData.watchLater));
+            localStorage.setItem('vidDrillRecentlyWatched', JSON.stringify(userData.recentlyWatched));
+        };
+        
+        // Show toast notification
+        const showToast = (message, type = 'success') => {
+            toastMessage.textContent = message;
+            toast.className = `toast ${type}`;
+            toastIcon.textContent = type === 'success' ? '✅' : '⚠️';
+            
+            toast.classList.add('show');
+            
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 3000);
+        };
+        
+        // Setup notifications
+        const setupNotifications = () => {
+            const newVideos = videoData.filter(v => v.isNew);
+            if (newVideos.length > 0) {
+                notificationCount.innerText = newVideos.length;
+
+                let panelHTML = '<h4>New Videos <button class="clear-notifications">Clear All</button></h4>';
+                newVideos.forEach(video => {
+                    panelHTML += `
+                        <div class="notification-item" data-video-id="${video.id}">
+                            <img src="${video.thumbnail}" alt="${video.title}">
+                            <div>
+                                <p>${video.title}</p>
+                                <span>${video.category} • ${new Date(video.uploadDate).toLocaleDateString()}</span>
+                            </div>
+                        </div>
+                    `;
+                });
+                notificationPanel.innerHTML = panelHTML;
+                
+                // Add event listener for clear notifications
+                document.querySelector('.clear-notifications').addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    notificationPanel.style.display = 'none';
+                    notificationCount.style.display = 'none';
+                    showToast('All notifications cleared', 'success');
+                });
+            }
+        };
+        
+        // Setup FAQ accordion
+        const setupFAQ = () => {
+            faqItems.forEach(item => {
+                const question = item.querySelector('.faq-question');
+                question.addEventListener('click', () => {
+                    // Close all other items
+                    faqItems.forEach(otherItem => {
+                        if (otherItem !== item) {
+                            otherItem.classList.remove('active');
+                        }
+                    });
+                    
+                    // Toggle current item
+                    item.classList.toggle('active');
+                });
+            });
+        };
+        
+        // Create video card
+        const createVideoCard = (video) => {
+            const isFavorite = userData.favorites.includes(video.id);
+            const isWatchLater = userData.watchLater.includes(video.id);
+            
+            const card = document.createElement('div');
+            card.className = `video-card ${video.isNew ? 'new' : ''}`;
+            card.dataset.videoId = video.id;
+            card.innerHTML = `
+                <div class="thumbnail-container">
+                    <img src="${video.thumbnail}" alt="${video.title}" class="thumbnail">
+                    <span class="category-tag">${categoryEmojis[video.category]} ${video.category.charAt(0).toUpperCase() + video.category.slice(1)}</span>
+                </div>
+                <div class="card-content">
+                    <h3 class="video-title">${video.title}</h3>
+                    <p class="video-description">${video.description}</p>
+                    <div class="video-meta">
+                        <span><i class="far fa-calendar"></i> ${new Date(video.uploadDate).toLocaleDateString()}</span>
+                    </div>
+                    <div class="button-group">
+                        <button class="btn btn-watch"><i class="fas fa-play"></i> Watch</button>
+                        <a href="${video.downloadLink || '#'}" class="btn btn-download" download><i class="fas fa-download"></i> Download</a>
+                        <button class="action-btn btn-share" title="Share"><i class="fas fa-share"></i></button>
+                        <button class="action-btn btn-watch-later ${isWatchLater ? 'active' : ''}" title="Watch Later"><i class="${isWatchLater ? 'fas' : 'far'} fa-bookmark"></i></button>
+                        <button class="action-btn btn-favorite ${isFavorite ? 'active' : ''}" title="Add to Favorites"><i class="${isFavorite ? 'fas' : 'far'} fa-heart"></i></button>
+                    </div>
+                </div>
+            `;
+            return card;
+        };
+        
+        // Render videos
+        const renderVideos = (videoList = videoData) => {
+            let filteredVideos = [...videoList];
+            
+            if (currentFilter !== 'all') {
+                filteredVideos = filteredVideos.filter(v => v.category === currentFilter);
+            }
+            
+            if (currentSearchQuery) {
+                filteredVideos = filteredVideos.filter(v => 
+                    v.title.toLowerCase().includes(currentSearchQuery) || 
+                    v.description.toLowerCase().includes(currentSearchQuery)
+                );
+            }
+            
+            const videosToShow = filteredVideos.slice(0, currentPage * itemsPerPage);
+            videoGrid.innerHTML = '';
+            
+            videosToShow.forEach(video => {
+                videoGrid.appendChild(createVideoCard(video));
+            });
+            
+            loadMoreBtn.style.display = videosToShow.length >= filteredVideos.length ? 'none' : 'block';
+        };
+        
+        // Show special list (Favorites, Watch Later, Recently Watched)
+        const showSpecialList = (listType) => {
+            let videoIds = [];
+            let listName = '';
+            
+            switch(listType) {
+                case 'favorites':
+                    videoIds = userData.favorites;
+                    listName = 'Favorites';
+                    break;
+                case 'watchLater':
+                    videoIds = userData.watchLater;
+                    listName = 'Watch Later';
+                    break;
+                case 'recentlyWatched':
+                    videoIds = userData.recentlyWatched;
+                    listName = 'Recently Watched';
+                    break;
+            }
+            
+            const videos = videoIds.map(id => videoData.find(v => v.id === id)).filter(Boolean);
+            
+            if (videos.length === 0) {
+                showToast(`No videos in your ${listName} list`, 'warning');
+                return;
+            }
+            
+            currentFilter = 'special';
+            currentSearchQuery = ''; 
+            searchBar.value = '';
+            currentPage = 1;
+            
+            // Clear grid and show special videos
+            videoGrid.innerHTML = '';
+            videos.forEach(video => {
+                videoGrid.appendChild(createVideoCard(video));
+            });
+            
+            loadMoreBtn.style.display = 'none';
+            sidenav.style.width = '0';
+            showToast(`Showing your ${listName}`, 'success');
+        };
+        
+        // Event listeners
+        navLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.forEach(l => l.classList.remove('active'));
+                link.classList.add('active');
+                currentFilter = link.dataset.filter;
+                currentPage = 1;
+                renderVideos();
+            });
+        });
+        
+        categoryCards.forEach(card => {
+            card.addEventListener('click', () => {
+                categoryCards.forEach(c => c.classList.remove('active'));
+                card.classList.add('active');
+                currentFilter = card.dataset.category;
+                currentPage = 1;
+                renderVideos();
+            });
+        });
+        
+        searchBar.addEventListener('input', () => {
+            currentSearchQuery = searchBar.value.toLowerCase();
+            currentPage = 1;
+            renderVideos();
+        });
+        
+        loadMoreBtn.addEventListener('click', () => {
+            currentPage++;
+            renderVideos();
+        });
+        
+        openNavBtn.addEventListener('click', () => sidenav.style.width = '250px');
+        closeNavBtn.addEventListener('click', () => sidenav.style.width = '0');
+        
+        // Sidebar navigation
+        homeBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            currentFilter = 'all';
+            currentSearchQuery = ''; 
+            searchBar.value = '';
+            currentPage = 1;
+            renderVideos();
+            sidenav.style.width = '0';
+            document.querySelector('.nav-link.active').classList.remove('active');
+            document.querySelector('.nav-link[data-filter="all"]').classList.add('active');
+            categoryCards.forEach(c => c.classList.remove('active'));
+            document.querySelector('.category-card[data-category="all"]').classList.add('active');
+            showToast('Back to home', 'success');
+        });
+        
+        favoritesBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            showSpecialList('favorites');
+        });
+        
+        watchLaterBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            showSpecialList('watchLater');
+        });
+        
+        recentlyWatchedBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            showSpecialList('recentlyWatched');
+        });
+        
+        notificationBell.addEventListener('click', (e) => {
+            e.stopPropagation();
+            notificationPanel.style.display = notificationPanel.style.display === 'block' ? 'none' : 'block';
+        });
+        
+        document.addEventListener('click', (e) => {
+            if (!e.target.closest('.notification-container')) {
+                notificationPanel.style.display = 'none';
+            }
+        });
+        
+        // Video card interactions
+        videoGrid.addEventListener('click', (e) => {
+            const card = e.target.closest('.video-card');
+            if (!card) return;
+            
+            const videoId = parseInt(card.dataset.videoId);
+            const video = videoData.find(v => v.id === videoId);
+
+            if (e.target.matches('.btn-watch') || e.target.closest('.btn-watch')) {
+                if (video) {
+                    // Add to recently watched
+                    userData.recentlyWatched = userData.recentlyWatched.filter(id => id !== video.id);
+                    userData.recentlyWatched.unshift(video.id);
+                    if (userData.recentlyWatched.length > 20) userData.recentlyWatched.pop();
+                    saveUserData();
+                    
+                    showToast(`Now playing: ${video.title}`, 'success');
+                }
+            }
+
+            if (e.target.matches('.btn-download') || e.target.closest('.btn-download')) {
+                showToast(`Download started for: ${video.title}`, 'success');
+            }
+
+            if (e.target.matches('.btn-share') || e.target.closest('.btn-share')) {
+                showToast(`Link copied to clipboard for sharing`, 'success');
+            }
+
+            if (e.target.matches('.btn-watch-later') || e.target.closest('.btn-watch-later')) {
+                const button = e.target.closest('.btn-watch-later');
+                if (userData.watchLater.includes(videoId)) {
+                    userData.watchLater = userData.watchLater.filter(id => id !== videoId);
+                    button.classList.remove('active');
+                    button.innerHTML = '<i class="far fa-bookmark"></i>';
+                    showToast('Removed from Watch Later', 'success');
+                } else {
+                    userData.watchLater.push(videoId);
+                    button.classList.add('active');
+                    button.innerHTML = '<i class="fas fa-bookmark"></i>';
+                    showToast('Added to Watch Later', 'success');
+                }
+                saveUserData();
+            }
+            
+            if (e.target.matches('.btn-favorite') || e.target.closest('.btn-favorite')) {
+                const button = e.target.closest('.btn-favorite');
+                if (userData.favorites.includes(videoId)) {
+                    userData.favorites = userData.favorites.filter(id => id !== videoId);
+                    button.classList.remove('active');
+                    button.innerHTML = '<i class="far fa-heart"></i>';
+                    showToast('Removed from Favorites', 'success');
+                } else {
+                    userData.favorites.push(videoId);
+                    button.classList.add('active');
+                    button.innerHTML = '<i class="fas fa-heart"></i>';
+                    showToast('Added to Favorites', 'success');
+                }
+                saveUserData();
+            }
+        });
+        
+        // Footer link handlers
+        footerLinks.forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                const page = link.getAttribute('data-page');
+                showToast(`Opening ${link.textContent} page`, 'success');
+                
+                // You can add actual navigation logic here
+                // For now, we'll just show the toast
+            });
+        });
+        
+        // Initialize
+        setupNotifications();
+        setupFAQ();
+        renderVideos();
+    });
+    </script>
+</body>
+</html>
